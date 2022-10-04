@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Http\Requests\user\UserRequest;
-
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -48,6 +48,38 @@ class UserController extends Controller
         $data['updated_at'] = new \DateTime();
         DB::table('users')->where('uuid', $user_uuid)->update($data);
         return redirect()->route('users.profile', ['user_uuid' => $user_uuid])->with(['success' => 'Success Edit Profile']);
+    }
+
+    public function getChangePassword($user_uuid) 
+    {
+        $data['user'] = DB::table('users')->where('uuid', $user_uuid)->first();
+        // dd($data);
+        $data["i"] = 0;
+        $data["i"]++;
+        return view('users.modules.profile.changepassword', $data);
+    }
+
+    
+    public function postChangePassword(Request $request, $user_uuid) 
+    {
+        $login = [
+            'username' => Auth::user()->username,
+            'password' => $request->old_password,
+        ];
+        $i = $request->i;
+        while($request->i <= 3) {
+            if(Auth::attempt($login)) {
+                $data['password'] = $request->new_password;
+                DB::table('users')->where('uuid', $user_uuid)->update($data);
+                return redirect()->back()->with(['success' => 'Change Password successfully']);
+            }
+            else {
+                $i++;
+                return redirect()->back()->with(['alert' => "Password change failed $i"]);
+            }
+        }
+        return redirect()->route('logout')->with(['alert' => 'Password change failed 3 times']);
+
     }
 
     public function transcript($user_uuid) 

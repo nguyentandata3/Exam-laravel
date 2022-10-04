@@ -13,11 +13,8 @@ function startTimer(duration, display) {
         $("input[name='time']").val(hours + ":" + minutes + ":" + seconds);
         if (--timer < 0) {
             timer = duration;
-            $(document).ready(function () {
-                $.get("http://localhost:8000/users/delete-session", function(data, status){
-                    window.location.href = 'http://localhost:8000/';
-                });
-            });
+            alert("Hết giờ làm bài!!");
+            $( "#test" ).submit();
         }
     }, 1000);
 }
@@ -33,13 +30,10 @@ jQuery(function ($) {
 });
 
 $(document).ready(function () {
-    $('#example').DataTable();
-
     $('input[type=radio][class=answer]').change(function() {
         var id = $(this).data("idquestion");
-        $(".checked_question" + id).css("background","yellow");
+        $(".checked_question" + id).css("background","#007bff");
     });
-
 });
 
 

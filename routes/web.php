@@ -128,7 +128,7 @@ Route::prefix('users')->middleware('check_user')->name('users.')->group(function
     Route::get('exams/{exam_id}', [ResultController::class, 'exams'])->name('exams');
     Route::post('addSession/{exam_id}', [ResultController::class, 'addSession'])->name('addSession');
 
-    Route::get('answer_questions/{exam_id}', [ResultController::class, 'answer_questions'])->name('answer_questions');
+    Route::get('answer_questions/', [ResultController::class, 'answer_questions'])->name('answer_questions');
     Route::post('test/{exam_id}', [ResultController::class, 'test'])->name('test');
 
     Route::get('delete-session', [ResultController::class, 'deleteSession'])->name('deleteSession');
@@ -138,4 +138,7 @@ Route::prefix('users')->middleware('check_user')->name('users.')->group(function
     
     Route::get('transcript/{user_uuid}', [UserController::class, 'transcript'])->name('transcript');
     Route::get('history/{history_id}', [UserController::class, 'history'])->name('history');
+
+    Route::get('changepassword/{uuid}', [UserController::class, 'getChangePassword'])->name('getChangePassword');
+    Route::post('postchangepassword/{uuid}', [UserController::class, 'postChangePassword'])->name('postChangePassword');
 });

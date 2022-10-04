@@ -29,7 +29,6 @@
                     </thead>
 
                     <tbody>
-                        @for($i = 1; $i < 50; $i++)
                         @foreach($exams as $exam)
                         <tr>
                             <th>{{ $loop->iteration }}</th>
@@ -49,11 +48,10 @@
                             <th scope="col" class="w-12">{{ date('d/m/Y', strtotime($exam->created_at)) }}</th>
                             <th scope="col" class="w-12">{{ date('d/m/Y', strtotime($exam->updated_at)) }}</th>
                             <th><a class="btn btn-primary" href="{{ route('admin.answerquestions.getcheckGenre',['exam_id' => $exam->id]) }}">Add Question</a></th>
-                            <th><a class="btn btn-success add-btn"  href="{{ route('admin.exams.edit',['id' => $exam->id]) }}">Edit</a></th>
-                            <th><a class="btn btn-sm btn-danger" href="{{ route('admin.exams.destroy',['id' => $exam->id]) }}">Delete</a></th>
+                            <th><a class="btn btn-success"  href="{{ route('admin.exams.edit',['id' => $exam->id]) }}">Edit</a></th>
+                            <th><a class="btn btn-danger" href="{{ route('admin.exams.destroy',['id' => $exam->id]) }}">Delete</a></th>
                         </tr>
                         @endforeach
-                    @endfor
                     </tbody>
                     <tfoot>
                         <tr>

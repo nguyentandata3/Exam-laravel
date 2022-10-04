@@ -1,31 +1,28 @@
-<?php
-    use Illuminate\Support\Facades\Auth;
-?>
 <header id="page-topbar">
     <div class="layout-width">
         <div class="navbar-header">
             <div class="d-flex">
                 <!-- LOGO -->
-                @if(Auth::user())
                 <div class="navbar-brand-box horizontal-logo">
-                    <a href="{{ route('users.profile',['user_uuid' => (Auth::user()->uuid)]) }}" class="logo logo-dark">
+                    <a href="index.html" class="logo logo-dark">
                         <span class="logo-sm">
-                            <img src="{{ asset('home/images/users/avatar-1.jpg') }}" alt="" height="65">
+                            <img src="assets/images/logo-sm.png" alt="" height="22">
                         </span>
                         <span class="logo-lg">
-                            <img src="{{ asset('home/images/users/avatar-2.jpg') }}" alt="" height="65">
+                            <img src="assets/images/logo-dark.png" alt="" height="17">
                         </span>
                     </a>
-                    <a href="{{ route('users.profile',['user_uuid' => (Auth::user()->uuid)]) }}" class="logo logo-light">
+
+                    <a href="index.html" class="logo logo-light">
                         <span class="logo-sm">
-                            <img src="{{ asset('home/images/users/avatar-3.jpg') }}" alt="" height="65">
+                            <img src="assets/images/logo-sm.png" alt="" height="22">
                         </span>
                         <span class="logo-lg">
-                            <img src="{{ asset('home/images/users/avatar-4.jpg') }}" alt="" height="65">
+                            <img src="assets/images/logo-light.png" alt="" height="17">
                         </span>
                     </a>
                 </div>
-                @endif
+
                 <button type="button" class="btn btn-sm px-3 fs-16 header-item vertical-menu-btn topnav-hamburger" id="topnav-hamburger-icon">
                     <span class="hamburger-icon">
                         <span></span>
@@ -48,7 +45,10 @@
                                 <h6 class="text-overflow text-muted mb-0 text-uppercase">Recent Searches</h6>
                             </div>
 
-                            
+                            <div class="dropdown-item bg-transparent text-wrap">
+                                <a href="index.html" class="btn btn-soft-secondary btn-sm btn-rounded">how to setup <i class="mdi mdi-magnify ms-1"></i></a>
+                                <a href="index.html" class="btn btn-soft-secondary btn-sm btn-rounded">buttons <i class="mdi mdi-magnify ms-1"></i></a>
+                            </div>
                             <!-- item-->
                             <div class="dropdown-header mt-2">
                                 <h6 class="text-overflow text-muted mb-1 text-uppercase">Pages</h6>
@@ -81,7 +81,7 @@
                                 <!-- item -->
                                 <a href="javascript:void(0);" class="dropdown-item notify-item py-2">
                                     <div class="d-flex">
-                                        <img src="{{ ('assets/home/images/users/avatar-5.jpg') }}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                        <img src="assets/images/users/avatar-2.jpg" class="me-3 rounded-circle avatar-xs" alt="user-pic">
                                         <div class="flex-1">
                                             <h6 class="m-0">Angela Bernier</h6>
                                             <span class="fs-11 mb-0 text-muted">Manager</span>
@@ -91,7 +91,7 @@
                                 <!-- item -->
                                 <a href="javascript:void(0);" class="dropdown-item notify-item py-2">
                                     <div class="d-flex">
-                                        <img src="{{ ('assets/home/images/users/avatar-3.jpg') }}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                        <img src="assets/images/users/avatar-3.jpg" class="me-3 rounded-circle avatar-xs" alt="user-pic">
                                         <div class="flex-1">
                                             <h6 class="m-0">David Grasso</h6>
                                             <span class="fs-11 mb-0 text-muted">Web Designer</span>
@@ -101,7 +101,7 @@
                                 <!-- item -->
                                 <a href="javascript:void(0);" class="dropdown-item notify-item py-2">
                                     <div class="d-flex">
-                                        <img src="{{ asset('home/images/users/avatar-2.jpg') }}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                        <img src="assets/images/users/avatar-5.jpg" class="me-3 rounded-circle avatar-xs" alt="user-pic">
                                         <div class="flex-1">
                                             <h6 class="m-0">Mike Bunch</h6>
                                             <span class="fs-11 mb-0 text-muted">React Developer</span>
@@ -117,52 +117,51 @@
                     </div>
                 </form>
             </div>
+
             <div class="d-flex align-items-center">
+
+                <div class="ms-1 header-item d-none d-sm-flex">
+                    <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle" data-toggle="fullscreen">
+                        <i class="bx bx-fullscreen fs-22"></i>
+                    </button>
+                </div>
+
+                <div class="ms-1 header-item d-none d-sm-flex">
+                    <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle light-dark-mode">
+                        <i class="bx bx-moon fs-22"></i>
+                    </button>
+                </div>
+
+                <?php
+                    use Illuminate\Support\Facades\Auth;
+                ?>
+
                 @if(Auth::user())
                 <?php
-                    $avatar = (empty(Auth::user()->avatar)) ? 'imagedefault.png' : Auth::user()->avatar;
+                    $avatar = (empty(Auth::user()->avatar)) ? 'defaultimage.png' : Auth::user()->avatar;
+                    $level_user = Auth::user()->level == 1 ? 'Admin' : 'Member';
                 ?>
-                <div class="navbar-brand-box">
-                    <!-- Dark Logo-->
-                    <i class="logo logo-dark w-80" style="width:65px">
-                        <span class="logo-sm">
-                            <a href="{{ route('users.profile',['user_uuid' => (Auth::user()->uuid)]) }}"><img src="{{ asset('images/'.$avatar) }}" alt="" width="50%"></a>
+                <div class="dropdown ms-sm-3 header-item topbar-user">
+                    <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="d-flex align-items-center">
+                            <img class="rounded-circle header-profile-user" src="{{ asset('images/'.$avatar) }}">
+                            <span class="text-start ms-xl-2">
+                                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{Auth::user()->fullname}}</span>
+                                <span class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">{{$level_user}}</span>
+                            </span>
                         </span>
-                        <span class="logo-lg">
-                            <a href="{{ route('users.profile',['user_uuid' => (Auth::user()->uuid)]) }}"><img src="{{ asset('images/'.$avatar) }}" alt="" width="50%"></a>
-                        </span>
-                    </i>
-                    <a href="{{ route('users.profile',['user_uuid' => (Auth::user()->uuid)]) }}" class="logo logo-dark w-20 ml-40 ">
-                        <span class="logo-sm">
-                            <i data-feather="log-out"></i>
-                        </span>
-                        <span class="logo-lg">
-                            <i data-feather="log-out"></i>
-                        </span>
-                    </a>
-                    <!-- Light Logo-->
-                    <i class="logo logo-light w-80" style="width:65px">
-                        <span class="logo-sm">
-                            <a href="{{ route('users.profile',['user_uuid' => (Auth::user()->uuid)]) }}"><img src="{{ asset('images/'.$avatar) }}" alt="" width="100%"></a>
-                        </span>
-                        <span class="logo-lg">
-                            <a href="{{ route('users.profile',['user_uuid' => (Auth::user()->uuid)]) }}"><img src="{{ asset('images/'.$avatar) }}" alt="" width="100%"></a>
-                        </span>
-                    </i>
-
-                    <a class="logo logo-light w-20 ml-10" href="{{ route('users.profile',['user_uuid' => (Auth::user()->uuid)]) }}"> {{Auth::user()->fullname}}
-                    </a>
-                    <a href="{{ route('logout') }}" class="logo logo-light w-20 ml-40">
-                        <span class="logo-sm">
-                            <i data-feather="log-out"></i>
-                        </span>
-                        <span class="logo-lg">
-                            <i data-feather="log-out"></i>
-                        </span>
-                    </a>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <!-- item-->
+                        <h6 class="dropdown-header">Welcome {{Auth::user()->fullname}}!</h6>
+                        <a class="dropdown-item" href="{{ route('users.profile',['user_uuid' => (Auth::user()->uuid)]) }}"><i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Profile</span></a>
+                        <a class="dropdown-item" href="{{ route('users.transcript',['user_uuid' => Auth::user()->uuid]) }}"><i class="mdi mdi-message-text-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Transcript</span></a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#"><i class="mdi mdi-lock text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Lock screen</span></a>
+                        <a class="dropdown-item" href="{{ route('logout') }}"><i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span class="align-middle" data-key="t-logout">Logout</span></a>
+                    </div>
                 </div>
                 @endif
-                
             </div>
         </div>
     </div>

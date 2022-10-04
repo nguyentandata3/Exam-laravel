@@ -3,7 +3,7 @@
 @section('endname', 'List')
 @section('midname', 'Questions list')
 @section('content')
-<form action="{{ route('users.addSession',['exam_id' => $exam->id]) }}" method="POST">
+<form action="{{ route('users.addSession')}}" method="POST">
 @csrf
 <div class="justify-content-center text-center">
     <div class="col-12 text-first text-primary h4">{{$exam->name}}</div>

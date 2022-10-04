@@ -19,6 +19,7 @@ return new class extends Migration
             $table->tinyInteger('point');
             $table->text('history');
             $table->string('uuid');
+            $table->tinyInteger('limit')->default(0);
 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');

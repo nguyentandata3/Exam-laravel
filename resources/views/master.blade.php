@@ -26,6 +26,8 @@
     <!-- Datatable Css-->
     <link href="{{ asset('home/css/datatable1.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('home/css/datatable2.css') }}" rel="stylesheet" type="text/css" />
+    <!-- AOS Css-->
+    <link href="{{ asset('home/css/aos.css') }}" rel="stylesheet" type="text/css" />
     <!-- Style Css-->
     <link href="{{ asset('home/css/style.css') }}" rel="stylesheet" type="text/css" />
 </head>
@@ -728,14 +730,20 @@
     <script type="text/javascript" src="{{ asset('home/js/datatable2.js') }}"></script>
     <script type="text/javascript" src="{{ asset('home/js/datatable3.js') }}"></script>
 
+    <!-- AOS js -->
+    <script type="text/javascript" src="{{ asset('home/js/aos.js') }}"></script>
+
     <!-- Style js -->
     <script type="text/javascript" src="{{ asset('home/js/style.js') }}"></script>
 
 </body>
 
 <script>
-$("#close").click(function() {
-    $("#tb").fadeToggle(1000);
+$(document).ready(function () {
+    $("#close").click(function() {
+        $("#tb").fadeToggle(1000);
+    });
+    $('#example').DataTable();
 });
 </script>
 

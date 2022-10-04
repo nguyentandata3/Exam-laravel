@@ -6,38 +6,29 @@
 @endphp
 <div class="app-menu navbar-menu">
     <!-- LOGO -->
-    @if(Auth::user())
-        <?php
-            $avatar = 'logo.jpg';
-        ?>
     <div class="navbar-brand-box">
         <!-- Dark Logo-->
-        <a href="{{ route('users.index') }}" class="logo logo-dark">
+        <a href="{{route('index')}}" class="logo logo-dark">
             <span class="logo-sm">
-                <img src="{{ asset('images/'.$avatar) }}" alt="" width="50%">
+                <img src="{{asset('images/logo.jpg')}}" alt="" height="50">
             </span>
             <span class="logo-lg">
-                <img src="{{ asset('images/'.$avatar) }}" alt="" width="50%">
+                <img src="{{asset('images/logo.jpg')}}" alt="" height="50">
             </span>
         </a>
         <!-- Light Logo-->
-        <a href="{{ route('users.index') }}" class="logo logo-light">
+        <a href="{{route('index')}}" class="logo logo-light">
             <span class="logo-sm">
-                <img src="{{ asset('images/'.$avatar) }}" alt="" width="50%">
+                <img src="{{asset('images/logo.jpg')}}" alt="" height="50">
             </span>
             <span class="logo-lg">
-                <img src="{{ asset('images/'.$avatar) }}" alt="" width="50%">
+                <img src="{{asset('images/logo.jpg')}}" alt="" height="50">
             </span>
         </a>
         <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover" id="vertical-hover">
             <i class="ri-record-circle-line"></i>
         </button>
     </div>
-    @else 
-        <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover" id="vertical-hover">
-            <i class="ri-record-circle-line"></i>
-        </button>
-    @endif
     <div id="scrollbar">
         <div class="container-fluid">
 
@@ -75,6 +66,10 @@
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('users.transcript',['user_uuid' => Auth::user()->uuid]) }}" class="nav-link">Transcript
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('users.getChangePassword',['uuid' => Auth::user()->uuid]) }}" class="nav-link">Change Password
                                 </a>
                             </li>
                         </ul>

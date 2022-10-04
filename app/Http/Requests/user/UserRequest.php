@@ -25,7 +25,7 @@ class UserRequest extends FormRequest
     {
         return [
             'username' => request()->route('id')
-                ? 'required|unique:users,username,'.request()->route('id')
+                ? 'unique:users,username,'.request()->route('id')
                 : 'required|unique:users',
             'fullname' => 'required',
             'sex' => 'required',
@@ -43,6 +43,7 @@ class UserRequest extends FormRequest
     public function messages() 
     {
         return [
+            'username.required' => 'Please input Username',
             'email.required' => 'Please input Email',
             'email.unique' => 'This Email already exists',
             'email.email' => "This is not an email",

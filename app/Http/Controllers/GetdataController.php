@@ -11,58 +11,54 @@ class GetdataController extends Controller
     public function laydata() {
         // $data = [];
 
-        $html = file_get_html('https://tracnghiem.net/thptqg/de-thi-thpt-qg-nam-2022-mon-sinh-5693.html');
-        $html2 = file_get_contents('https://tracnghiem.net/thptqg/de-thi-thpt-qg-nam-2022-mon-sinh-5693.html');
-        $data['answer'] = ($html->find('.exam-content ul li p'));
+        $html = file_get_html('https://tracnghiem.net/de-thi/de-thi-hk2-mon-tieng-anh-12-nam-2021-2022-5534.html');
         $answer = ($html->find('.exam-content ul li p'));
-        // dd($answer);
-        foreach ($answer as $key => $value) {
-            $question[$key] = htmlspecialchars($value);
-            // $question[$key] = strip_tags($question[$key]);
-            $question[$key] = str_replace('&lt;p&gt;', '', $question[$key]);
-            $a = strpos($question[$key], '&lt;');
-            // dd($a);
-            $question[$key] = substr($question[$key], 0, $a);
-        }
-        $i = 0;
-        $j = 1;
         $a = [];
-        while($i < count($question) - 5) {
-            $a[$j]['question'] = $question[$i];
-            $i++;
-            $a[$j]['a'] = $question[$i];
-            $i++;
-            $a[$j]['b'] = $question[$i];
-            $i++;
-            $a[$j]['c'] = $question[$i];
-            $i++;
-            $a[$j]['d'] = $question[$i];
-            $i++;
-        }
-        function rand_string( $length ) {
-            $chars = "abcd";
-            $size = strlen( $chars );
-            for( $i = 0; $i < $length; $i++ ) {
-                $str = $chars[ rand( 0, $size - 1 ) ];
+        $j = 0;
+        foreach ($answer as $key => $value) {
+            $question[$j][$key] = " " . strip_tags($value) . "<br/>";
+            if(strpos($question[$j][$key], "A.") != 0) {
+                $a[$j]['a'] = strip_tags($question[$j][$key]);
+                // $key++;
             }
-        return $str;
+            // if(strpos($question[$key], "B.") != 0) {
+            //     $a[$j]['a'] = strip_tags($question[$key]);
+            // }
+            // if(strpos($question[$key], "A.") != 0) {
+            //     $a[$j]['a'] = strip_tags($question[$key]);
+            // }
+            // if(strpos($question[$key], "A.") != 0) {
+            //     $a[$j]['a'] = strip_tags($question[$key]);
+            // }
+            // if(strpos($question[$key], "A.") != 0) {
+            //     $a[$j]['a'] = strip_tags($question[$key]);
+            // }
+            $j++;
         }
-        for($i = 1; $i < $j; $i++) {
-            $data[] = [];
-            $str = rand_string(1);
-            $a[$i] = json_encode($a[$i]);
-            $data = [
-                'question' => $a[$i],
-                'exam_id' => 3,
-                'user_id' => 1,
-                'created_at' => new \DateTime(),
-                'answer' => $str,
-                'level' => rand(1,3),
-                'genre_id' => 1,
-            ];
-            
-        DB::table('answer_questions')->insert($data);
-        }
+        dd($question);
+        // function rand_string( $length ) {
+        //     $chars = "abcd";
+        //     $size = strlen( $chars );
+        //     for( $i = 0; $i < $length; $i++ ) {
+        //         $str = $chars[ rand( 0, $size - 1 ) ];
+        //     }
+        // return $str;
+        // }
+        // foreach($a as $key => $value) {
+        //     $str = rand_string(1);
+        //     $data[] = [];
+        //     $data = [
+        //         'question' => '1',
+        //         'exam_id' => 3,
+        //         'user_id' => 1,
+        //         'created_at' => new \DateTime(),
+        //         'answer' => $str,
+        //         'level' => rand(1,3),
+        //         'genre_id' => 1,
+        //     ];
+        //     dd($data);
+        // DB::table('answer_questions')->insert($data);
+        // }
     }
     
     public function postlaydata(Request $request) {

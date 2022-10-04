@@ -20,7 +20,7 @@ class LoginController extends Controller
     }
 
     public function postLogin(Request $request) {
-        // dd($request);
+        // dd($request->password);
         $data = $request->except('_token');
         $login = [
             'username' => $request->username,
@@ -47,7 +47,7 @@ class LoginController extends Controller
     
         $request->session()->regenerateToken();
     
-        return redirect()->route('getLogin')->with(['logout' => 'Success Logout']);
+        return view('logout');
     }
 
     public function getRegister() {
@@ -59,7 +59,7 @@ class LoginController extends Controller
         $data = $request->except('_token', 'password_confirmation');
         $data['uuid'] = Str::uuid();
         $data['level'] = 2;
-        $data['password'] = bcrypt($request->password);
+        $data['password'] = md5($request->password);
         $data['created_at'] = new \DateTime();
 
         // $imageName = time().'-'.$request->avatar->getClientOriginalName();  

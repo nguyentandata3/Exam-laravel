@@ -36,8 +36,10 @@ class ResultController extends Controller
   
     public function exams(Request $request, $exam_id)
     {
-        if ($request->session()->has('user_id')) {
-            $request->session()->forget('user_id');
+        session_start();
+        // dd($_SESSION['total_time']);
+        if (isset($_SESSION['user_test'])) {
+            unset($_SESSION['user_test']);
         }
         $data["exam"] = DB::table('exams')->where('id', $exam_id)->first();
         $data['answer_questions'] = DB::table('answer_questions')
@@ -77,32 +79,45 @@ class ResultController extends Controller
 
     public function addSession(Request $request, $exam_id)
     {
-        $data = $request->except('_token');
         $exam = DB::table('exams')->where('id', $exam_id)->first();
-        session(['user_id' => 15]);
-        // DB::table('sessions')->insert($data);
-        return redirect()->route('users.answer_questions', ['exam_id' => $exam->id]);
+        // session_start();
+        // setcookie("abc", $exam->total_time, $expire = 0, time() + $exam->total_time, "/");
+        session_start();
+        //Set PHP session with value, time
+        $currentTime = time();
+        $_SESSION['user_test'] = array(
+            "value" => "$exam_id",
+            "time" => $currentTime,
+            "life_time" => $exam->total_time
+        );
+        // $_SESSION['time'] = $exam->total_time;
+        return redirect()->route('users.answer_questions');
     }
 
-    public function answer_questions(Request $request, $exam_id)
+    public function answer_questions(Request $request)
     {
-        if ($request->session()->has('user_id')) {
-            $data["exam"] = DB::table('exams')->where('id', $exam_id)->first();
-            $data['answer_questions'] = DB::table('answer_questions')
-                ->select('answer_questions.*', 'genres.name as genre_name', 'users.fullname as user_fullname', 'exams.name as exam_name')
-                ->join('users', 'answer_questions.user_id', '=', 'users.id')
-                ->join('genres', 'answer_questions.genre_id', '=', 'genres.id')
-                ->join('exams', 'answer_questions.exam_id', '=', 'exams.id')
-                ->inRandomOrder()
-                ->where('exam_id', $exam_id)
-                ->get();
-                // dd($data);
-            $data['routecurrent'] = Route::currentRouteName();
-            // dd($data);
-            return view('users.modules.answer_questions.index', $data);
+        session_start();
+        if(isset($_SESSION["user_test"])) {
+            $exam_id = $_SESSION['user_test']['value'];
+            $data['timecurrent'] = $_SESSION['user_test']['time'];
+            $data['timelife'] = $_SESSION['user_test']['life_time'] + $data['timecurrent'];
+
+            if($data['timelife'] >= 0) {
+                $data["exam"] = DB::table('exams')->where('id', $exam_id)->first();
+                $data['answer_questions'] = DB::table('answer_questions')
+                    ->select('answer_questions.*', 'genres.name as genre_name', 'users.fullname as user_fullname', 'exams.name as exam_name')
+                    ->join('users', 'answer_questions.user_id', '=', 'users.id')
+                    ->join('genres', 'answer_questions.genre_id', '=', 'genres.id')
+                    ->join('exams', 'answer_questions.exam_id', '=', 'exams.id')
+                    ->inRandomOrder()
+                    ->where('exam_id', $exam_id)
+                    ->get();
+                $data['routecurrent'] = Route::currentRouteName();
+                return view('users.modules.answer_questions.index', $data);
+            }
         }
         else {
-            dd($request);
+            unset($_SESSION['user_test']);
             abort(404);
         }
         
@@ -115,16 +130,20 @@ class ResultController extends Controller
      */
     public function test(Request $request, $exam_id)
     {
+        session_start();
+        if (isset($_SESSION['user_test'])) {
+            unset($_SESSION['user_test']);
+        }
         $data = $request->except('_token');
         $results['point'] = 0;
         $number = strpos("$request->time",":");
-        $seconds = (int)substr("$request->time", $number + 1);
-        $minutes = (int)substr($request->time, 0, $number);
+        $hours = (int)substr("$request->time", 0, $number);
+        $minutes = (int)substr($request->time, $number + 1, $number + 2);
+        $seconds = (int)substr("$request->time", $number + 4, $number + 5);
         $results['history'] = json_encode($data);
         $data['exam'] = DB::table('exams')->where('id', $exam_id)->first();
         $total_time = $data['exam']->total_time;
-        $results['completion_time'] = $total_time - ($minutes * 60 + $seconds);
-        // dd($data);
+        $results['completion_time'] = $total_time - ($hours * 3600 + $minutes * 60 + $seconds);
         $data['answer_questions'] = DB::table('answer_questions')
             ->select('answer_questions.*', 'genres.name as genre_name', 'users.fullname as user_fullname', 'exams.name as exam_name')
             ->join('users', 'answer_questions.user_id', '=', 'users.id')
@@ -146,7 +165,8 @@ class ResultController extends Controller
         $results['user_id'] = Auth::user()->id;
         $results['exam_id'] = $data['exam']->id;
         $results['created_at'] = new \DateTime;
-        // dd($results);
+        $results['limit'] = 1;
+        
         DB::table('results')->insert($results);
         return redirect()->route('users.deleteSession');
     }
@@ -210,8 +230,9 @@ class ResultController extends Controller
     }
 
     public function deleteSession (Request $request) {
-        if ($request->session()->has('user_id')) {
-            $request->session()->forget('user_id');
+        session_start();
+        if (isset($_SESSION['user_test'])) {
+            unset($_SESSION['user_test']);
         }
         return redirect()->route('users.transcript',['user_uuid' => Auth::user()->uuid]);
     }

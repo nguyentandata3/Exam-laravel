@@ -49,10 +49,9 @@ class ExamController extends Controller
         $data = $request->except('_token');
         $data['user_id'] = 1;
         $data['created_at'] = new \DateTime();
-        dd($data);
-        $subject_id = DB::table('exams')->where('id', $id)->first()->subject_id;
+        // dd($data);
         DB::table('exams')->insert($data);
-        return redirect()->route('admin.exams.index', ['subject_id' => $subject_id]);
+        return redirect()->route('admin.exams.index', ['subject_id' => $request->subject_id]);
     }
 
     /**

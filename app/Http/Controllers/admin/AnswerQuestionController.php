@@ -16,6 +16,12 @@ class AnswerQuestionController extends Controller
      */
     public function index($exam_id)
     {
+        $data['exams'] = DB::table('exams')
+            ->select('exams.*', 'subjects.name as subject_name', 'users.fullname as user_fullname')
+            ->join('users', 'exams.user_id', '=', 'users.id')
+            ->join('subjects', 'exams.subject_id', '=', 'subjects.id')
+            ->ORDERBY('id', 'DESC')
+            ->get();
         $data['answer_questions'] = DB::table('answer_questions')
             ->select('answer_questions.*', 'genres.name as genre_name', 'users.fullname as user_fullname', 'exams.name as exam_name')
             ->join('users', 'answer_questions.user_id', '=', 'users.id')

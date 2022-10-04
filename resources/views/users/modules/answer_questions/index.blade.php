@@ -26,15 +26,17 @@
     <!-- Datatable Css-->
     <link href="{{ asset('home/css/datatable1.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('home/css/datatable2.css') }}" rel="stylesheet" type="text/css" />
+    <!-- AOS Css-->
+    <link href="{{ asset('home/css/aos.css') }}" rel="stylesheet" type="text/css" />
     <!-- Style Css-->
     <link href="{{ asset('home/css/style.css') }}" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
 
-<input type="hidden" value="{{ $exam->total_time }}" id="time_test"/>
+<input type="hidden" value="{{ $timelife-$timecurrent }}" id="time_test"/>
 
-<form method="post" action="{{ route('users.test',['exam_id' => $exam->id]) }}" enctype="multipart/form-data">
+<form method="post" id="test" action="{{ route('users.test',['exam_id' => $exam->id]) }}" enctype="multipart/form-data">
 <div class="row d-flex mt-10">
     <div class="col-lg-8">
         @csrf
@@ -45,23 +47,47 @@
             if($item->genre_id == 1) {
                 $data_questions = json_decode($item->question, true);
             }
+            
+            $number = rand(1,4);
+            if($number == 1) {
+                $face = 'data-aos=fade-down data-aos-easing="linear" data-aos-duration="300"';
+            }
+            elseif ($number == 2) {
+                $face = 'data-aos=fade-right data-aos-easing="linear" data-aos-duration="300"';
+            }
+            elseif ($number == 3) {
+                $face = 'data-aos=zoom-out-left data-aos-easing="linear" data-aos-duration="300"';
+            }
+            else {
+                $face = 'data-aos=zoom-out-right data-aos-easing="linear" data-aos-duration="300"';
+            }
+            if($item->level == 1) {
+                $level = 'bg_green';
+            }
+            elseif ($item->level == 2) {
+                $level = 'bg_yellow';
+            }
+            else {
+                $level = 'bg_red';
+            }
         @endphp
-        <div class="card" >
+        <div class="card ml-30" >
             <div class="card-body">
                 <div class="table-responsive table-card mt-3 mb-1">
                     <table class="table ">
                         <thead class="table-light">
-                            <tr id="question{{$loop->iteration}}">
+                            <tr {{$face}} id="question{{$loop->iteration}}">
                                 <?php  if(!empty($item->genre_id == 1)) { ?>
-                                <th scope="col" style="width: 12%;">
+                                <th class="{{$level}}" scope="col" style="width: 12%;">
                                 Question {{ $loop->iteration }}: (Level<?php 
-                                    if($item->level == 1) {?>
-                                    Easy
-                                    <?php } elseif ($item->level == 2) { ?>
-                                    Normal 
-                                    <?php } else {?>
-                                    Hard
-                                    <?php } ?>)
+                                    if($item->level == 1)
+                                    echo " Easy)";
+                                    elseif ($item->level == 2) {
+                                    echo " Normal)";
+                                    }
+                                    else {
+                                    echo " Hard)";
+                                    } ?>
                                 </th>
                                 <?php }
                                 elseif ($item->genre_id == 2) { ?>
@@ -73,7 +99,7 @@
                             <tr>
                                 <th> {!! $data_questions['question'] !!} </th>
                             </tr>
-                            <tr>
+                            <tr data-aos="fade-right" data-aos-delay="300" >
                                 <?php
                                     if(!empty($item->image)) { ?>
                                     <td><img src="{{ asset('images/'.$image) }}" width="50px"></td>
@@ -84,7 +110,7 @@
                             <?php  
                                 if($item->genre_id == 1) { ?>
                             <tr>
-                                <td>
+                                <td >
                                     <div class="col-12 p-1 col-md-6 pull-left">
                                         <div class="col-12 p-1 d-flex" style="padding:5px">
                                             <input class="answer" type="radio" data-idquestion="{{$loop->iteration}}" name="{{ $item->id }}" value="a">  
@@ -94,7 +120,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>
+                                <td >
                                     <div class="col-12 p-1 col-md-6 pull-left">
                                         <div class="col-12 p-1 d-flex" style="padding:5px">
                                             <input class="answer" type="radio" data-idquestion="{{$loop->iteration}}" name="{{ $item->id }}" value="b">  
@@ -104,7 +130,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>
+                                <td >
                                     <div class="col-12 p-1 col-md-6 pull-left">
                                         <div class="col-12 p-1 d-flex" style="padding:5px">
                                             <input class="answer" type="radio" data-idquestion="{{$loop->iteration}}" name="{{ $item->id }}" value="c">  
@@ -114,7 +140,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>
+                                <td >
                                     <div class="col-12 p-1 col-md-6 pull-left">
                                         <div class="col-12 p-1 d-flex" style="padding:5px">
                                             <input class="answer" type="radio" data-idquestion="{{$loop->iteration}}" name="{{ $item->id }}" value="d">  
@@ -136,30 +162,42 @@
                 <i data-feather="clock"></i>
                 <span id="time" ></span>
         </div>
-        <div class="d-flex justify-content-center align-items-center">
-            <div class="d-flex pr-5"><i class="styles_box__3y3tx"></i></div>
-            <div class="p-0 d-flex">Chưa Làm</div>
-            <div class="pl-20 d-flex pr-5"><i class="styles_box__3y3tx color-yellow"></i></div>
-            <div class="p-0 d-flex">Đã làm</div>
-        </div>
-        <div class="mt-2 mobile:hidden">
-            <div class="styles_card__FMlAF pt-0">
-                <h1 class="text-2xl mt-2 mb-3 d-flex justify-content-center w-100">Câu hỏi</h1>
-                <div class="grid grid-cols-5 gap-3 justify-center items-center">
-                    @foreach ($answer_questions as $item)
-                    <div class="d-flex justify-content-center align-items-center">
-                        <div class="styles_box__3y3tx checked_question{{ $loop->iteration }} "> <a class=" text_black" href="#question{{ $loop->iteration }}">{{ $loop->iteration }}</a></div>
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex justify-content-center align-items-center">
+                    <div class="d-flex pr-5"><i class="styles_box__3y3tx"></i></div>
+                    <div class="p-0 d-flex">Chưa Làm</div>
+                    <div class="pl-20 d-flex pr-5"><i class="styles_box__3y3tx bg-primary"></i></div>
+                    <div class="p-0 d-flex">Đã làm</div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="mt-2 mobile:hidden pb_400 relative">
+                    <div class="styles_card__FMlAF pt-0">
+                        <h1 class="text-2xl mt-2 mb-3 d-flex justify-content-center w-100 text-muted">Câu hỏi</h1>
+                        <div class="simplebar-offset absolute mt_50">
+                            <div class="simplebar-content-wrapper">
+                                <div class="grid grid-cols-5 gap-3 justify-center items-center">
+                                    @foreach ($answer_questions as $item)
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <div class="styles_box__3y3tx checked_question{{ $loop->iteration }} "> 
+                                            <a class=" text_black" href="#question{{ $loop->iteration }}">{{ $loop->iteration }}</a>
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    @endforeach
                 </div>
             </div>
         <div>
-            <input type="submit" class="btn btn-success add-btn w-100" value="Submit">
+            <input type="submit" class="finish btn btn-success add-btn w-100" value="Submit">
         </div>
         </div>
     </div>
 </div>
-<input type="submit" class="submit_col_12 btn btn-success add-btn col-sm-12" value="Submit">
+<input type="submit" class="finish submit_col_12 btn btn-success add-btn col-sm-12" value="Submit">
 </form> 
     <!-- JAVASCRIPT -->
     <script type="text/javascript" src="{{ asset('home/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -171,6 +209,9 @@
 
     <!-- App js -->
     <script type="text/javascript" src="{{ asset('home/js/app.js') }}"></script>
+
+    <!-- AOS js -->
+    <script type="text/javascript" src="{{ asset('home/js/aos.js') }}"></script>
 
     <!-- Jquery js -->
     <script type="text/javascript" src="{{ asset('home/js/jquery.js') }}"></script>
@@ -186,7 +227,26 @@
 </body>
 
 <script>
+    AOS.init(); 
     feather.replace()
+</script>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js">
+</script>
+<script type="text/javascript">
+    //By using jQuery
+    $(".finish").click(function() {
+        flag = false;
+        return confirm('Nộp bài?');
+    });
+
+  
+    // window.beforeunload = function(){
+    //     return 'Are you leave page?';
+    // }
+    
+    
+    
 </script>
 
 <script>

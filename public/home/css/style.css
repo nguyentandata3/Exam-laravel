@@ -132,14 +132,20 @@ a {
 .mt-10 {
     margin-top: 10px !important;
 }
+.ml-30 {
+    margin-left:30px !important;
+}
 .mt-25{
     margin-top: 25px !important;
 }
-.color-yellow {
-    background: yellow;
-}
 .time_and_exams {
     display:none;
+}
+.bg_head {
+    background-color: #364a5e !important;
+}
+.text_red {
+    color: #ff0000;
 }
 @media only screen and (min-width: 1400px) {
     .time_and_exams {
@@ -159,11 +165,35 @@ a {
     }
 }
 
-.text_red {
-    color: red;
+.bg_red {
+    background-color: #ff0000ab !important;
 }
 
+.bg_green {
+    background-color: #00ff53db !important;
+}
+
+.bg_yellow {
+    background-color: #ffbf00e0 !important;
+}
 .text_green {
     color:green;
     font-weight: 750 !important;
+}
+.buttom_mt_25 {
+    margin-top:25% !important;
+}
+.pb_400 {
+    padding-bottom: 400px !important;
+}
+
+.relative {
+    position:relative !important;
+}
+.absolute {
+    position: absolute;
+}
+
+.mt_50 {
+    margin-top: 50px !important;
 }

@@ -15,6 +15,11 @@ class HomeController extends Controller
      */
     public function index()
     {
+        session_start();
+        // dd($_SESSION['user_test']);
+        if (isset($_SESSION['user_test'])) {
+            unset($_SESSION['user_test']);
+        }
         $data['subjects'] = DB::table('subjects')
         ->ORDERBY('id', 'DESC')
         ->get();
@@ -33,6 +38,11 @@ class HomeController extends Controller
 
     public function subjects($subject_id)
     {
+        session_start();
+        // dd($_SESSION['user_test']);
+        if (isset($_SESSION['user_test'])) {
+            unset($_SESSION['user_test']);
+        }
         $data['exams'] = DB::table('exams')
             ->select('exams.*', 'subjects.name as subject_name')
             ->join('users', 'exams.user_id', '=', 'users.id')
@@ -47,6 +57,11 @@ class HomeController extends Controller
 
     public function exams(Request $request, $exam_id)
     {
+        session_start();
+        // dd($_SESSION['user_test']);
+        if (isset($_SESSION['user_test'])) {
+            unset($_SESSION['user_test']);
+        }
         if ($request->session()->has('user_id')) {
             $request->session()->forget('user_id');
         }

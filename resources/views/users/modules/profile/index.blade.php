@@ -24,7 +24,7 @@
         <div class="col-12 p-1 justify-content-start d-flex">
             <label for="name" class="col-3 col-form-label col-form-label p-1">Username</label>
             <div class="col-9">
-                <input type="text" id="username" class="form-control form-control-sm bg-white p-1" name="username" value={{ $user->username }}>
+                <span id="username" class="text-secondary">{{ $user->username }}</span>
             </div>
         </div>
 
@@ -86,7 +86,7 @@
             <label for="avatar" class="col-3 col-form-label col-form-label p-1 ">Avatar</label>
             <div class="col-3">
                 <?php
-                    $avatar = empty($user->avatar) ? 'imagedefault.png' : $user->avatar;
+                    $avatar = empty($user->avatar) ? 'defaultimage.png' : $user->avatar;
                 ?>
                 <img id="avatar" src="{{ asset('images/'.$avatar)}}" class="rounded-circle" style="height: 60px; width: 60px">
             </div>
@@ -96,9 +96,9 @@
             </div>
         </div>
 
-        <div class="col-12 p-4 d-flex justify-content-center text-center"></div>
-            <label class="col-3 col-form-label col-form-label p-1 "></label>
-            <button type="submit" class="btn btn-sm btn-primary">Edit</button>
+        <div class="col-12 p-4 d-flex justify-content-center text-center">
+            <label for="phone" class="col-3 col-form-label col-form-label p-1"></label>
+            <button type="submit" class="col-9 p-1 btn btn-sm btn-success">Edit</button>
         </div>
 
     </form>
