@@ -6,7 +6,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Sign Up | Exam Online - Admin & Dashboard Template</title>
+    <title>Đăng ký | Thi online</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
@@ -23,6 +23,8 @@
     <link href="{{ asset('home/css/app.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- custom Css-->
     <link href="{{ asset('home/css/custom.min.css') }}" rel="stylesheet" type="text/css" />
+    <!-- Style Css-->
+    <link href="{{ asset('home/css/style.css') }}" rel="stylesheet" type="text/css" />
 
 </head>
 
@@ -40,89 +42,88 @@
                 </svg>
             </div>
         </div>
-
         <!-- auth page content -->
         <div class="page-content">
             <div class="container">                
                 <div class="row justify-content-center">
                     <div class="col-md-8 col-lg-6 col-xl-5">
-                    <?php
-                        use Illuminate\Support\Facades\Session;
-                    ?>
-                    @if (Session::get('success'))
-                        <div class="alert alert-success alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <h5><i class="icon fas fa-check"></i> Alert!</h5>
-                        {{ (Session::get('success')) }}
+                        @if ($errors->any())
+                        <div class="alert alert-danger alert-dismissible p_relative" id="tb">
+                            <button type="button" class="close button_x" id="close">×</button>
+                            <h5><i class="icon fas fa-ban"></i> Thông báo!</h5>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
                         </div>
-                    @endif
-                    @if (Session::get('error'))
-                        <div class="alert alert-danger alert-dismissible">
-                            <button type="button" id="close" data-dismiss="alert" aria-hidden="true">×</button>
-                            <h5><i class="icon fas fa-ban"></i> Alert!</h5>
-                            {{ (Session::get('error')) }}
-                        </div>
-                    @endif
-                    @if ($errors->any())
-                    <div class="alert alert-danger alert-dismissible" id="tb">
-                        <button type="button" id="close">×</button>
-                        <h5><i class="icon fas fa-ban"></i> Alert!</h5>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </div>
-                    @endif
+                        @endif
+                        <?php
+                            use Illuminate\Support\Facades\Session;
+                        ?>
+                        @if (Session::get('success'))
+                            <div class="alert alert-success alert-dismissible" id="tb">
+                                <button type="button" class="close" id="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <h5><i class="icon fas fa-check"></i> Thông báo!</h5>
+                                {{ (Session::get('success')) }}
+                            </div>
+                        @endif
+                        @if (Session::get('error'))
+                            <div class="alert alert-danger alert-dismissible" id="tb">
+                                <button type="button" class="close" id="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <h5><i class="icon fas fa-ban"></i> Thông báo!</h5>
+                                {{ (Session::get('error')) }}
+                            </div>
+                        @endif
+                    
                         <div class="card mt-4">
-
                             <div class="card-body p-4">
                                 <div class="text-center mt-2">
-                                    <h5 class="text-primary">Create New Account</h5>
-                                    <p class="text-muted">Get your free Exam Online account now</p>
+                                    <h5 class="text-primary">Tạo tài khoản mới</h5>
+                                    <p class="text-muted">Tạo tài khoản miễn phí để thi online ngay bây giờ</p>
                                 </div>
                                 <div class="p-2 mt-4">
                                     
                                     <div class="mb-3">
                                         <label for="useremail" class="form-label">Email <span class="text-danger">*</span></label>
-                                        <input type="email" class="form-control" name="email" placeholder="Enter email address" >
+                                        <input type="email" class="form-control" name="email" placeholder="Vui lòng nhập email" >
                                         <div class="invalid-feedback">
-                                            Please enter email
+                                            Vui lòng nhập email
                                         </div>
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="username" class="form-label">Username <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="username" id="username" placeholder="Enter username" >
+                                        <label for="username" class="form-label">Tên đăng nhập <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="username" id="username" placeholder="Vui lòng nhập tên đăng nhập" >
                                         <div class="invalid-feedback">
-                                            Please enter username
+                                            Vui lòng nhập tên đăng nhập
                                         </div>
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="username" class="form-label">Full name <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="fullname" placeholder="Enter username" >
+                                        <label for="username" class="form-label">Họ và tên <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="fullname" placeholder="Vui lòng nhập đầy đủ họ tên" >
                                         <div class="invalid-feedback">
-                                            Please enter username
+                                            Vui lòng nhập đầy đủ họ tên
                                         </div>
                                     </div>
 
                                     <div class="mb-3">
-                                        <label class="form-label" for="password-input">Password</label>
+                                        <label class="form-label" for="password-input">Mật khẩu</label>
                                         <div class="position-relative auth-pass-inputgroup">
-                                            <input name="password" type="password" class="form-control pe-5 password-input" onpaste="return false" placeholder="Enter password" id="password-input" aria-describedby="passwordInput" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+                                            <input name="password" type="password" class="form-control pe-5 password-input" placeholder="Vui lòng nhập mật khẩu" id="password-input" aria-describedby="passwordInput" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
                                             <i class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="i" id="password-addon"><i class="ri-eye-fill align-middle"></i></i>
                                             <div class="invalid-feedback">
-                                                Please enter password
+                                                Vui lòng nhập mật khẩu
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="mb-3">
-                                        <label class="form-label" for="password-input">Password Confirm</label>
+                                        <label class="form-label" for="password-input">Mật khẩu xác nhận</label>
                                         <div class="position-relative auth-pass-inputgroup">
-                                            <input name="password_confirmation" type="password" class="form-control pe-5 password-input" onpaste="return false" placeholder="Enter password" id="password-input" aria-describedby="passwordInput" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+                                            <input name="password_confirmation" type="password" class="form-control pe-5 password-input" onpaste="return false" placeholder="Vui lòng nhập lại mật khẩu" id="password-input" aria-describedby="passwordInput" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
                                             <i class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="i" id="password-addon"><i class="ri-eye-fill align-middle"></i></i>
                                             <div class="invalid-feedback">
-                                                Please enter password confirm
+                                                Vui lòng nhập lại mật khẩu
                                             </div>
                                         </div>
                                     </div>
@@ -130,34 +131,34 @@
                                     <div class="mb-3">
                                         <div class="row form-label">
                                             <div class="col-12 mb-3">
-                                                <label>Sex</label>
+                                                <label>Giới tính</label>
                                             </div>
                                             <div class="col ">
                                                 <input type="radio" name="sex" value="1">
-                                                <label class="fw-400" for="html">Male</label>
+                                                <label class="fw-400" for="html">Nam</label>
                                             </div>
                                             <div class="col">
                                                 <input type="radio" name="sex" value="2">
-                                                <label class="fw-400" for="html">Female</label>
+                                                <label class="fw-400" for="html">Nữ</label>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="username" class="form-label">Phone <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="phone" placeholder="Enter username" >
+                                        <label for="username" class="form-label">Số điện thoại <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="phone" placeholder="Vui lòng nhập số điện thoại" >
                                         <div class="invalid-feedback">
-                                            Please enter phone
+                                            Vui lòng nhập số điện thoại
                                         </div>
                                     </div>
 
 
                                     <div id="password-contain" class="p-3 bg-light mb-2 rounded">
-                                        <h5 class="fs-13">Password must contain:</h5>
-                                        <p id="pass-length" class="invalid fs-12 mb-2">Minimum <b>8 characters</b></p>
-                                        <p id="pass-lower" class="invalid fs-12 mb-2">At <b>lowercase</b> letter (a-z)</p>
-                                        <p id="pass-upper" class="invalid fs-12 mb-2">At least <b>uppercase</b> letter (A-Z)</p>
-                                        <p id="pass-number" class="invalid fs-12 mb-0">A least <b>number</b> (0-9)</p>
+                                        <h5 class="fs-13">Mật khẩu cần phải có:</h5>
+                                        <p id="pass-length" class="invalid fs-12 mb-2">Tối thiểu <b>8 ký tự</b></p>
+                                        <p id="pass-lower" class="invalid fs-12 mb-2"> <b>Chữ thường</b> (a-z)</p>
+                                        <p id="pass-upper" class="invalid fs-12 mb-2"> <b>Chữ in hoa</b> (A-Z)</p>
+                                        <p id="pass-number" class="invalid fs-12 mb-0"> <b>Ít nhất 1 số</b> (0-9)</p>
                                     </div>
 
                                     <div class="mt-4">
@@ -219,6 +220,9 @@
 
     <!-- Jquery js -->
     <script src="{{ asset('home/js/jquery.js') }}"></script>
+
+    <!-- Style js -->
+    <script src="{{ asset('home/js/style.js') }}"></script>
     
 </body>
 <script>

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\admin;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Request;
-class SubjectRequest extends FormRequest
+
+class SendemailRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,17 +24,15 @@ class SubjectRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => request()->route('id')
-            ? 'required|unique:subjects,name,'.request()->route('id')
-            : 'required|unique:subjects,name'
+            'email' => 'required|email',
         ];
     }
 
-    public function messages() 
+    public function messages()
     {
         return [
-            'name.required' => 'Vui lòng nhập tên môn thi',
-            'name.unique' => 'Tên môn thi này đã tồn tại',
+            'email.required' => 'Vui lòng nhập email',
+            'email.email' => 'Email không hợp lệ!'
         ];
     }
 }

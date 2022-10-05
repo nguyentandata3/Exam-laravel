@@ -6,7 +6,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>@yield('name', 'Home') | @yield('endname')</title>
+    <title>Thi Online</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
@@ -79,7 +79,7 @@
                             <tr {{$face}} id="question{{$loop->iteration}}">
                                 <?php  if(!empty($item->genre_id == 1)) { ?>
                                 <th class="{{$level}}" scope="col" style="width: 12%;">
-                                Question {{ $loop->iteration }}: (Level<?php 
+                                Câu hỏi {{ $loop->iteration }}: (Level<?php 
                                     if($item->level == 1)
                                     echo " Easy)";
                                     elseif ($item->level == 2) {

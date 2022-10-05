@@ -7,7 +7,7 @@
         @csrf
         <div class="col-xl-12">
             <div class="mb-3">
-                <label for="cleave-ccard" class="form-label" >Genre</label>
+                <label for="cleave-ccard" class="form-label" >Hình thức</label>
                 <select for="cleave-ccard" class="form-control"  name="genre_id">
                     @foreach($genres as $genre)
                     <option value="{{ old('genres',$genre->id) }}">{{ old('genres', $genre->name) }}</option>

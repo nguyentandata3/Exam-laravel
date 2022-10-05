@@ -1,7 +1,7 @@
 @extends('master')
-@section('name', 'Answer Questions')
-@section('endname', 'List')
-@section('midname', 'Answer Questions list')
+@section('name', 'Câu hỏi')
+@section('endname', 'Danh sách')
+@section('midname', 'Danh sách Câu hỏi')
 @section('content')
 <form action="{{ route('users.addSession',['exam_id' => $exam->id]) }}" method="POST">
 @csrf
@@ -17,7 +17,7 @@
         <thead class="table-light">
             <tr>
                 <?php  if($item->genre_id == 1) { ?>
-                <th scope="col" style="width: 12%;">Question {{ $loop->iteration }}:</th>
+                <th scope="col" style="width: 12%;">Đề thi {{ $loop->iteration }}:</th>
             </tr>
         </thead>
         <tbody class="table-light">
@@ -25,7 +25,7 @@
                 <td scope="col">{{ $data_questions['question'] }}</td>
                 <?php }
                 elseif ($item->genre_id == 2) { ?>
-                <td scope="col" style="width: 12%;">Question {{ $loop->iteration }}: {{ $item->question }}</td>
+                <td scope="col" style="width: 12%;">Đề thi {{ $loop->iteration }}: {{ $item->question }}</td>
                 <?php } ?>
             </tr>
         </tbody>
@@ -35,7 +35,13 @@
 @endforeach  
 <div class="col-lg-12">
     <div class="col-12 p-1">
-    <button class="btn btn-success add-btn" type="submit" id="testButton" data-time="15">Test</button>
+    <button class="btn btn-success add-btn start" type="submit" id="testButton" data-time="15">Bắt đầu làm bài</button>
 </div>
 </form>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script type="text/javascript">
+    $(".start").click(function() {
+        return confirm('Bắt đầu tính thời gian thi?');
+    });
+</script>
 @endsection

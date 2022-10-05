@@ -1,7 +1,7 @@
 @extends('master')
-@section('name', 'Answer Question')
-@section('endname', 'List')
-@section('midname', 'Answer Question List')
+@section('name', 'Câu hỏi')
+@section('endname', 'Chỉnh sửa')
+@section('midname', 'Chỉnh sửa câu hỏi')
 @section('content')
 <form method="post" action="{{ route('admin.answerquestions.update',['exam_id' => $exams->id, 'id_answerquestion' => $answer_questions->id]) }}" enctype="multipart/form-data">
         @csrf
@@ -9,7 +9,7 @@
 
             <div class="col-xl-12">
                 <div class="mb-3">
-                    <label for="cleave-ccard" class="form-label" >Genre</label>
+                    <label for="cleave-ccard" class="form-label" >Hình thức</label>
                     <input type="text" class="form-control" id="cleave-ccard" value="{{ $genres->name }}" readonly>
                 </div>
                 <div class="mb-3">
@@ -17,16 +17,16 @@
                 </div>
             </div><!-- end col -->
             <div class="mb-3">
-                <label for="cleave-ccard" class="form-label">Choose level</label>
+                <label for="cleave-ccard" class="form-label">Cấp độ</label>
                 <select name='level' class="form-control" >
-                    <option value="1">Easy</option>
-                    <option value="2">Normal</option>
-                    <option value="3">Hard</option>
+                    <option value="1">Dễ</option>
+                    <option value="2">Vừa</option>
+                    <option value="3">Khó</option>
                 </select>
             </div>
 
             <div class="col-xl-12">
-                <label for="cleave-ccard" class="form-label">Question</label>
+                <label for="cleave-ccard" class="form-label">Câu hỏi</label>
                 <textarea name="question[question]" class="form-control" id="question" cols="30" rows="10">{{ old('question[question]', $questions['question']) }}</textarea>
                 <script>
                     CKEDITOR.replace('intro', {
@@ -44,35 +44,35 @@
 
                 <div class="col-xl-12">
                     <div class="mb-3">
-                        <label for="cleave-ccard" class="form-label">Answer A</label>
-                        <input type="text" name="question[a]" class="form-control" id="cleave-ccard" placeholder="Please input new Answer A" value="{{ old('question[a]', $questions['a']) }}">
+                        <label for="cleave-ccard" class="form-label">Câu trả lời A</label>
+                        <input type="text" name="question[a]" class="form-control" id="cleave-ccard" placeholder="Vui lòng nhập câu trả lời mới A" value="{{ old('question[a]', $questions['a']) }}">
                     </div>
                 </div><!-- end col -->
 
                  <div class="col-xl-12">
                     <div class="mb-3">
-                        <label for="cleave-ccard" class="form-label">Answer B</label>
-                        <input type="text" name="question[b]" class="form-control" id="cleave-ccard" placeholder="Please input new Answer C" value="{{ old('question[b]', $questions['b']) }}">
+                        <label for="cleave-ccard" class="form-label">Câu trả lời B</label>
+                        <input type="text" name="question[b]" class="form-control" id="cleave-ccard" placeholder="Vui lòng nhập câu trả lời mới C" value="{{ old('question[b]', $questions['b']) }}">
                     </div>
                 </div><!-- end col -->
 
                  <div class="col-xl-12">
                     <div class="mb-3">
-                        <label for="cleave-ccard" class="form-label">Answer C</label>
-                        <input type="text" name="question[c]" class="form-control" id="cleave-ccard" placeholder="Please input new Answer C" value="{{ old('question[c]', $questions['c']) }}">
+                        <label for="cleave-ccard" class="form-label">Câu trả lời C</label>
+                        <input type="text" name="question[c]" class="form-control" id="cleave-ccard" placeholder="Vui lòng nhập câu trả lời mới C" value="{{ old('question[c]', $questions['c']) }}">
                     </div>
                 </div><!-- end col -->
 
                  <div class="col-xl-12">
                     <div class="mb-3">
-                        <label for="cleave-ccard" class="form-label">Answer D</label>
-                        <input type="text" name="question[d]" class="form-control" id="cleave-ccard" placeholder="Please input new Answer D" value="{{ old('question[d]', $questions['d']) }}">
+                        <label for="cleave-ccard" class="form-label">Câu trả lời D</label>
+                        <input type="text" name="question[d]" class="form-control" id="cleave-ccard" placeholder="Vui lòng nhập câu trả lời mới D" value="{{ old('question[d]', $questions['d']) }}">
                     </div>
                 </div><!-- end col -->
 
                 <div class="col-xl-12">
                     <div class="mb-3">
-                        <label for="cleave-ccard" class="form-label">Correct Answer</label>
+                        <label for="cleave-ccard" class="form-label">Đáp án</label>
                         <select name="answer" class="form-control" value="{{ old('answer', $answer_questions->answer)}}">
                             <option value="a" {{ old('answer', $answer_questions->answer) == 'a' ? 'selected' : '' }}>A</option>
                             <option value="b" {{ old('answer', $answer_questions->answer) == 'b' ? 'selected' : '' }}>B</option>
@@ -86,14 +86,14 @@
             @else
             <div class="col-xl-12">
                 <div class="mb-3">
-                    <label for="cleave-ccard" class="form-label">Answer</label>
-                    <input type="text" name="answer" class="form-control" id="cleave-ccard" placeholder="Please input new Answer" value="{{ old('answer', $answer_questions->answer) }}">
+                    <label for="cleave-ccard" class="form-label">Đáp án</label>
+                    <input type="text" name="answer" class="form-control" id="cleave-ccard" placeholder="Vui lòng nhập đáp án mới" value="{{ old('answer', $answer_questions->answer) }}">
                 </div>
             </div><!-- end col -->
             @endif
         </div>
-        <button class="btn btn-success add-btn" type="submit">Edit</button>
-        <a class="btn btn-sm btn-danger" href="{{ route('admin.answerquestions.index',['exam_id' => $exams->id]) }}">Cancel</a>
+        <button class="btn btn-success add-btn" type="submit">Chỉnh sửa</button>
+        <a class="btn btn-sm btn-danger" href="{{ route('admin.answerquestions.index',['exam_id' => $exams->id]) }}">Hủy bỏ</a>
     </form>
 
 @endsection

@@ -33,7 +33,7 @@ class GenreRequest extends FormRequest
     public function messages() 
     {
         return [
-            'name.required' => 'Please Choose Genre',
+            'name.required' => 'Vui lòng chọn hình thức',
         ];
     }
 }

@@ -1,4 +1,7 @@
 @extends('master')
+@section('name', 'Bảng điểm')
+@section('endname', 'Lịch sử thi')
+@section('midname', 'Lịch sử thi')
 @section('content')
 @foreach ($answer_questions as $item)
 @php 

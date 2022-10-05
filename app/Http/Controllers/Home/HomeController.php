@@ -43,6 +43,7 @@ class HomeController extends Controller
         if (isset($_SESSION['user_test'])) {
             unset($_SESSION['user_test']);
         }
+        $data['subject'] = DB::table('subjects')->first();
         $data['exams'] = DB::table('exams')
             ->select('exams.*', 'subjects.name as subject_name')
             ->join('users', 'exams.user_id', '=', 'users.id')

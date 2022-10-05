@@ -1,7 +1,7 @@
 @extends('master')
-@section('name', 'Transcript')
-@section('endname', 'History')
-@section('midname', 'Transcript')
+@section('name', 'Bảng điểm')
+@section('endname', 'Lịch sử thi')
+@section('midname', 'Lịch sử thi')
 @section('content')
 <?php
 use Illuminate\Support\Facades\Auth;
@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 ?>
 <div class="row justify-content-center fz-4">
     <div class="col-12 pt-3 col-md-10 d-flex h3 text-primary justify-content-center text-center">
-       Transcript
+       Bảng điểm
     </div>
     <div class="col-12  pb-4 col-md-10 d-flex h4 text-primary font-weight-bold font-italic justify-content-center text-center"> {{ Auth::user()->fullname }}
     </div>

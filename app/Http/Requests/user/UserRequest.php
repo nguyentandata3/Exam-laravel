@@ -36,25 +36,25 @@ class UserRequest extends FormRequest
             //'name' => 'required|unique:categories'
             'password' => request()->route('id')
                 ? 'confirmed'
-                : 'required|confirmed|min:7',
+                : 'required|confirmed|min:8',
         ];
     }
 
     public function messages() 
     {
         return [
-            'username.required' => 'Please input Username',
-            'email.required' => 'Please input Email',
-            'email.unique' => 'This Email already exists',
-            'email.email' => "This is not an email",
-            'password.required' => 'Please input Password',
-            'password.confirmed' => 'Password Confirm is not true',
-            'password.min' => 'Password is min 7 characters',
-            'fullname.required' => 'Please input Fullname',
-            'phone.required' => 'Please input Phone',
-            'avatar.required' => 'Please choose an Avatar',
-            'avatar.mimes' => 'Avatar is one of the following formats: jng, bmp, png',
-            'sex.required' => 'Please choose a Gender'
+            'username.required' => 'Vui lòng nhập tên đăng nhập',
+            'email.required' => 'Vui lòng nhập email',
+            'email.unique' => 'Email này đã tồn tại',
+            'email.email' => "Vui lòng nhập đúng email",
+            'password.required' => 'Vui lòng nhập mật khẩu',
+            'password.confirmed' => 'Mật khẩu xác nhận không đúng',
+            'password.min' => 'Mật khẩu ít nhất phải 8 ký tự',
+            'fullname.required' => 'Vui lòng nhập đầy đủ Họ tên',
+            'phone.required' => 'Vui lòng nhập số điện thoại',
+            'avatar.required' => 'Vui lòng chọn ảnh đại diện',
+            'avatar.mimes' => 'Ảnh đại diện phải 1 trong các dạng: jng, bmp, png',
+            'sex.required' => 'Vui lòng chọn giới tính'
         ];
     }
 }

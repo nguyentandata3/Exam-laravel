@@ -1,7 +1,7 @@
 @extends('master')
-@section('name', 'Exam')
-@section('endname', 'List')
-@section('midname', 'Exam list')
+@section('name', 'Đề thi')
+@section('endname', 'Danh sách')
+@section('midname', 'Danh sách đề thi')
 @section('content')
 <div class="col-lg-12">
     <div class="card">
@@ -11,8 +11,8 @@
                     <table class="table align-middle table-nowrap" id="customerTable">
                         <thead class="table-light">
                             <tr>
-                                <th scope="col" class="w-30">Exam name</th>
-                                <th scope="col" class="w-12">Total time</th>
+                                <th scope="col" class="w-30">Tên đề thi</th>
+                                <th scope="col" class="w-12">Tổng thời gian làm bài</th>
                                 <th></th>
                                 <th></th>
                                 <th scope="col"  class="w-80"></th>
@@ -34,18 +34,11 @@
                                 @endif
                                 <td></td>
                                 <td></td>
-                                <td><a class="btn btn-success add-btn w-80"  href="{{ route('exams',['exam_id' => $exam->id]) }}">View Exam</a></td>
+                                <td><a class="btn btn-success add-btn w-80"  href="{{ route('exams',['exam_id' => $exam->id]) }}">Xem đề thi</a></td>
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
-                    <div class="noresult" style="display: none;">
-                        <div class="text-center">
-                            <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop" colors="primary:#121331,secondary:#08a88a" style="width:75px;height:75px"></lord-icon>
-                            <h5 class="mt-2">Sorry! No Result Found</h5>
-                            <p class="text-muted mb-0">We've searched more than 150+ Orders We did not find any orders for you search.</p>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div><!-- end card -->

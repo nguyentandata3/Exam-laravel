@@ -43,11 +43,11 @@
                     <div class="collapse menu-dropdown" id="sidebarAuth">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{ route('getLogin') }}" class="nav-link">Log In
+                                <a href="{{ route('getLogin') }}" class="nav-link">Đăng nhập
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('getRegister') }}" class="nav-link">Register
+                                <a href="{{ route('getRegister') }}" class="nav-link">Đăng ký
                                 </a>
                             </li>
                         </ul>
@@ -56,20 +56,20 @@
                 
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth">
-                        <i class="ri-account-circle-line"></i> <span data-key="t-authentication">Infomation</span>
+                        <i class="ri-account-circle-line"></i> <span data-key="t-authentication">Thông tin</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarAuth">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{ route('users.profile',['user_uuid' => Auth::user()->uuid]) }}" class="nav-link">Infomation
+                                <a href="{{ route('users.profile',['user_uuid' => Auth::user()->uuid]) }}" class="nav-link">Thông tin cá nhân
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('users.transcript',['user_uuid' => Auth::user()->uuid]) }}" class="nav-link">Transcript
+                                <a href="{{ route('users.transcript',['user_uuid' => Auth::user()->uuid]) }}" class="nav-link">Bảng điểm
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('users.getChangePassword',['uuid' => Auth::user()->uuid]) }}" class="nav-link">Change Password
+                                <a href="{{ route('users.getChangePassword',['uuid' => Auth::user()->uuid]) }}" class="nav-link">Đổi mật khẩu
                                 </a>
                             </li>
                         </ul>
@@ -79,16 +79,16 @@
 
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth">
-                        <i class="ri-account-circle-line"></i> <span data-key="t-authentication">Sign in</span>
+                        <i class="ri-account-circle-line"></i> <span data-key="t-authentication">Đăng nhập</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarAuth">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{ route('getLogin') }}" class="nav-link">Log In
+                                <a href="{{ route('getLogin') }}" class="nav-link">Đăng nhập
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('getRegister') }}" class="nav-link">Register
+                                <a href="{{ route('getRegister') }}" class="nav-link">Đăng ký
                                 </a>
                             </li>
                         </ul>
@@ -97,7 +97,7 @@
                 @endif
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarPages" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarPages">
-                        <i class="ri-pages-line"></i> <span data-key="t-pages">Subjects</span>
+                        <i class="ri-pages-line"></i> <span data-key="t-pages">Môn thi</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarPages">
                         <ul class="nav nav-sm flex-column">

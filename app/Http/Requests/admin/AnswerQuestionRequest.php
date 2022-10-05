@@ -34,10 +34,10 @@ class AnswerQuestionRequest extends FormRequest
     public function messages() 
     {
         return [
-            'level.required' => 'Please choose Level',
-            'question[question].required' => 'Please input Quesion',
-            'image.required' => 'Please Choose Image',
-            'answer.required' => 'Please input Answer',
+            'level.required' => 'Vui lòng chọn cấp đọ',
+            'question[question].required' => 'Vui lòng nhập câu hỏi',
+            'image.required' => 'Vui lòng chọn hình ảnh',
+            'answer.required' => 'Vui lòng nhập đáp án',
         ];
     }
 }

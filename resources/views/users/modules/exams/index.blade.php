@@ -1,16 +1,16 @@
 @extends('master')
-@section('name', 'Exams')
-@section('endname', 'List')
-@section('midname', 'Questions list')
+@section('name', 'Câu hỏi')
+@section('endname', 'Danh sách')
+@section('midname', 'Danh sách câu hỏi')
 @section('content')
-<form action="{{ route('users.addSession')}}" method="POST">
+<form action="{{ route('users.addSession',['exam_id' => $exam->id])}}" method="POST">
 @csrf
 <div class="justify-content-center text-center">
     <div class="col-12 text-first text-primary h4">{{$exam->name}}</div>
 </div>
 
 <div class="justify-content-center text-center">
-    <button class="col-2 btn btn-success add-btn">Start Test</button>
+    <button class="col-2 btn btn-success add-btn start">Bắt đầu làm bài</button>
 </div>
 
 <div class="col-12 col-md-10 col-lg-9 text-center d-flex">
@@ -38,9 +38,6 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4 pull-right" style="margin-top: 10px;">
-        (Ý tưởng mới)    
-    </div>  
 </div>
 @foreach ($answer_questions as $item)
 @php 
@@ -54,7 +51,7 @@
             <thead class="table-light">
                 <tr>
                     <?php  if($item->genre_id == 1) { ?>
-                    <th scope="col" style="width: 12%;">Question {{ $loop->iteration }}:</th>
+                    <th scope="col" style="width: 12%;">Câu hỏi {{ $loop->iteration }}:</th>
                 </tr>
             </thead>
             <tbody class="table-light">
@@ -62,7 +59,7 @@
                     <td scope="col">{!! strip_tags($data_questions['question']) !!}</td>
                     <?php }
                     elseif ($item->genre_id == 2) { ?>
-                    <td scope="col" style="width: 12%;">Question {{ $loop->iteration }}: {{ $item->question }}</td>
+                    <td scope="col" style="width: 12%;">Câu hỏi {{ $loop->iteration }}: {{ $item->question }}</td>
                     <?php } ?>
                 </tr>
             </tbody>
@@ -71,12 +68,18 @@
 </div>
 
 @endforeach  
-<div class="col-12 w-100">
-    <button class="btn btn-success add-btn w-40" type="submit" id="testButton" data-time="15">Test</button>
+<div class="col col-lg-12">
+    <div class="col-12 p-1">
+        <button class="btn btn-success add-btn start" type="submit" id="testButton" data-time="15">Bắt đầu làm bài</button>
+    </div>
 </div>
 </form>
-<script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script type="text/javascript">
     $(document).ready(function(){
+        $(".start").click(function() {
+            return confirm('Bắt đầu tính thời gian thi?');
+        });
         $('[data-toggle="tooltip"]').tooltip(); 
         $('.btn-success').tooltip();  
     });

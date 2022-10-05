@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -20,7 +21,7 @@ class LoginController extends Controller
     }
 
     public function postLogin(Request $request) {
-        // dd($request->password);
+        // dd($request);
         $data = $request->except('_token');
         $login = [
             'username' => $request->username,
@@ -40,7 +41,6 @@ class LoginController extends Controller
     }
 
     public function logout(Request $request) {
-        // dd(123);
         Auth::logout();
  
         $request->session()->invalidate();
@@ -59,7 +59,7 @@ class LoginController extends Controller
         $data = $request->except('_token', 'password_confirmation');
         $data['uuid'] = Str::uuid();
         $data['level'] = 2;
-        $data['password'] = md5($request->password);
+        $data['password'] = Hash::make($request->password);
         $data['created_at'] = new \DateTime();
 
         // $imageName = time().'-'.$request->avatar->getClientOriginalName();  

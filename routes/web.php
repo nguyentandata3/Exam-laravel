@@ -9,7 +9,7 @@ use App\Http\Controllers\admin\GenreController;
 use App\Http\Controllers\admin\AnswerQuestionController;
 use App\Http\Controllers\SocialController;
 use App\Http\Controllers\GetdataController;
-use App\Http\Controllers\SendEmailController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\CkeditorController;
 use App\Http\Controllers\user\ResultController;
 use App\Http\Controllers\user\UserController;
@@ -27,13 +27,14 @@ use App\Http\Controllers\user\UserController;
 
 Route::get('/auth/redirect/{provider}', 'App\Http\Controllers\SocialController@redirect');
 Route::get('/callback/{provider}', 'App\Http\Controllers\SocialController@callback');
-
 // Route::get('/auth/redirect/{provider}', [SocialController::class, 'redirect'])->name('redirect');
 // Route::get('/callback/{provider}', [SocialController::class, 'callback'])->name('callback');
 // Route::get('/auth/redirect/{provider}', 'SocialController@redirect');
 // Route::get('/callback/{provider}', 'SocialController@callback');
 
-Route::get('send-email', [SendEmailController::class, 'index']);
+Route::get('getSendemail', [MailController::class, 'getSendemail'])->name('getSendemail');
+Route::post('postSendemail', [MailController::class, 'postSendemail'])->name('postSendemail');
+Route::get('successemail', [MailController::class, 'successemail'])->name('successemail');
 
 Route::get('login', [LoginController::class, 'getLogin'])->name('getLogin');
 Route::get('register', [LoginController::class, 'getRegister'])->name('getRegister');

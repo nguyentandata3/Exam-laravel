@@ -6,7 +6,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Logout - Exams</title>
+    <title>Đăng xuất - Thi online</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
@@ -70,10 +70,10 @@
                                 <lord-icon src="https://cdn.lordicon.com/hzomhqxz.json" trigger="loop" colors="primary:#405189,secondary:#08a88a" style="width:180px;height:180px"></lord-icon>
 
                                 <div class="mt-4 pt-2">
-                                    <h5>You are Logged Out</h5>
-                                    <p class="text-muted">Thank you for using <span class="fw-semibold">Exams</span></p>
+                                    <h5>Bạn đã đăng xuất khỏi thi online</h5>
+                                    <p class="text-muted">Cảm ơn đã sử dụng <span class="fw-semibold">Thi online</span></p>
                                     <div class="mt-4">
-                                        <a href="{{route('getLogin')}}" class="btn btn-success w-100">Sign In</a>
+                                        <a href="{{route('getLogin')}}" class="btn btn-success w-100">Đăng nhập</a>
                                     </div>
                                 </div>
                             </div>

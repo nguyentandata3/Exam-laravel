@@ -1,7 +1,7 @@
 @extends('master')
-@section('name', 'Subjects')
-@section('endname', 'List')
-@section('midname', 'Subjects - List')
+@section('name', 'Môn thi')
+@section('endname', 'Danh sách')
+@section('midname', 'Danh sách môn thi')
 @section('content')
     <div class="card">
         <div class="card-header">
@@ -82,20 +82,19 @@
 <div class="col-lg-12">
     <div class="card">
         <div class="card-header">
-            <h4 class="card-title mb-0">Add, Edit &amp; Remove</h4>
+            <h4 class="card-title mb-0">Tạo, Chỉnh sửa &amp; Xóa</h4>
         </div><!-- end card header -->
         
         <table id="example" class="table table-striped table-bordered" style="width:100%">           
             <div class="card-body">
-                <a href=" {{ route('admin.subjects.create') }} " class="btn btn-sm btn-success fw-600">Create New Subject</a>
+                <a href=" {{ route('admin.subjects.create') }} " class="btn btn-sm btn-success fw-600">Tạo 1 môn thi mới</a>
                 <div class="mt-3 mb-1">
                     <thead>
                         <tr>
-                            <th>Numercial Order</th>
-                            <th>Subject name</th>
-                            <th>Created At</th>
-                            <th>Updated At</th>
-                            <th></th>
+                            <th>STT</th>
+                            <th>Tên môn thi</th>
+                            <th>Ngày tạo</th>
+                            <th>Ngày chỉnh sửa</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -104,13 +103,12 @@
                     <tbody>
                     @foreach($subjects as $subject)
                     <tr>
-                        <th>{{ $loop->iteration }}</th>
-                        <th><a href=" {{ route('admin.exams.index', ['subject_id' => $subject->id]) }} ">{{ $subject->name }}</a></th>
-                        <th>{{ date('d/m/Y', strtotime($subject->created_at)) }}</th>
-                        <th>{{ date('d/m/Y', strtotime($subject->updated_at)) }}</th>
-                        <th></th>
-                        <th><a class="btn btn-sm btn-success" href="{{ route('admin.subjects.edit',['id' => $subject->id]) }}">Edit</a></th>
-                        <th><a class="btn btn-sm btn-danger" href="{{ route('admin.subjects.destroy',['id' => $subject->id]) }}">Delete</a></th>
+                        <td>{{ $loop->iteration }}</td>
+                        <td><a href=" {{ route('admin.exams.index', ['subject_id' => $subject->id]) }} ">{{ $subject->name }}</a></td>
+                        <td>{{ date('d/m/Y', strtotime($subject->created_at)) }}</td>
+                        <td>{{ date('d/m/Y', strtotime($subject->updated_at)) }}</td>
+                        <td><a class="btn btn-sm btn-success w-100" href="{{ route('admin.subjects.edit',['id' => $subject->id]) }}">Chỉnh sửa</a></td>
+                        <td><a class="btn btn-sm btn-danger w-100" href="{{ route('admin.subjects.destroy',['id' => $subject->id]) }}">Xóa</a></td>
                         
                     </tr>
                     @endforeach
@@ -118,11 +116,10 @@
 
                     <tfoot>
                         <tr>
-                            <th>Numercial Order</th>
-                            <th>Subject name</th>
-                            <th>Created At</th>
-                            <th>Updated At</th>
-                            <th></th>
+                            <th>STT</th>
+                            <th>Tên môn thi</th>
+                            <th>Ngày tạo</th>
+                            <th>Ngày chỉnh sửa</th>
                             <th></th>
                             <th></th>
                         </tr>

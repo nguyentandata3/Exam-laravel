@@ -180,6 +180,9 @@ a {
     color:green;
     font-weight: 750 !important;
 }
+.mt_100 {
+    margin-top: 100px !important;
+}
 .ml-0 {
     margin-left: 0px !important;
 }
@@ -189,7 +192,18 @@ a {
 .pb_400 {
     padding-bottom: 400px !important;
 }
-
+.p_relative {
+    position: relative;
+}
+.button_x {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 0.75rem 1.25rem;
+    background: transparent;
+    color: inherit;
+    font-size: 1.5rem;
+}
 .relative {
     position:relative !important;
 }

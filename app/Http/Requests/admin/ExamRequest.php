@@ -38,12 +38,12 @@ class ExamRequest extends FormRequest
     public function messages() 
     {
         return [
-            'name.required' => 'Please input Name',
-            'name.unique' => 'This Name already exists',
-            'hours.required' => 'Please input Hours',
-            'minutes.required' => 'Please input Minutes',
-            'seconds.required' => 'Please input Seconds',
-            'limit.required' => 'Please input Limit Exam'
+            'name.required' => 'Vui lòng nhập tên bài thi',
+            'name.unique' => 'Tên bài thi này đã được sử dụng',
+            'hours.required' => 'Vui lòng nhập số giờ thi',
+            'minutes.required' => 'Vui lòng nhập số phút thi',
+            'seconds.required' => 'Vui lòng nhập số giây thi',
+            'limit.required' => 'Vui lòng nhập só lần bài thi'
         ];
     }
 }

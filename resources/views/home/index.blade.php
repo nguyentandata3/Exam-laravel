@@ -1,5 +1,6 @@
 @extends('master')
-@section('name', 'Home')
+@section('name', 'Trang chủ')
+@section('endname', 'Thi online')
 @section('content')
 <div class="col-12 p-1 pull-center">
     <div class="col-12 p-1 d-flex">
@@ -35,7 +36,7 @@
                     </div>
                     <div class="col-2 p-0 text-right">
                         <span class="text-center pb-0">
-                            <a class="btn btn-sm btn-primary p-1 buttontt" href="{{ route('exams', ['exam_id' => $item->id]) }}"> View Exam </a> &nbsp;
+                            <a class="btn btn-sm btn-primary p-1 buttontt" href="{{ route('exams', ['exam_id' => $item->id]) }}"> Bắt đầu thi </a> &nbsp;
                         </span>
                     </div>
                 </div>
@@ -43,7 +44,9 @@
                 @endif
             @endforeach
         </div>
-        <p class="text-right mt-2 mr-2"> <a class="text-primary" href="{{ route('subjects', ['subject_id' => $subject->id]) }}"><b><i> More &nbsp;&nbsp; </i></b> </a> </p>
+        <div class="box-body p-1">
+        <p class="text-right mt-2 mr-2"> <a class="text-primary" href="{{ route('subjects', ['subject_id' => $subject->id]) }}"><b><i> Xem toàn bộ đề thi &nbsp;&nbsp; </i></b> </a> </p>
+        </div>
     </div>
 </div>
 @endforeach
