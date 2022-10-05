@@ -27,7 +27,9 @@ class ExamRequest extends FormRequest
             'name' => request()->route('id')
             ? 'required|unique:exams,name,'.request()->route('id')
             : 'required|unique:exams,name',
-            'total_time' => 'required',
+            'seconds' => 'required',
+            'hours' => 'required',
+            'minutes' => 'required',
             'limit' => 'required',
 
         ];
@@ -38,7 +40,9 @@ class ExamRequest extends FormRequest
         return [
             'name.required' => 'Please input Name',
             'name.unique' => 'This Name already exists',
-            'total_time.required' => 'Please input Total Time',
+            'hours.required' => 'Please input Hours',
+            'minutes.required' => 'Please input Minutes',
+            'seconds.required' => 'Please input Seconds',
             'limit.required' => 'Please input Limit Exam'
         ];
     }

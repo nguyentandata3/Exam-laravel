@@ -13,52 +13,60 @@ class GetdataController extends Controller
 
         $html = file_get_html('https://tracnghiem.net/de-thi/de-thi-hk2-mon-tieng-anh-12-nam-2021-2022-5534.html');
         $answer = ($html->find('.exam-content ul li p'));
-        $a = [];
+        
         $j = 0;
         foreach ($answer as $key => $value) {
-            $question[$j][$key] = " " . strip_tags($value) . "<br/>";
-            if(strpos($question[$j][$key], "A.") != 0) {
-                $a[$j]['a'] = strip_tags($question[$j][$key]);
-                // $key++;
-            }
-            // if(strpos($question[$key], "B.") != 0) {
-            //     $a[$j]['a'] = strip_tags($question[$key]);
-            // }
-            // if(strpos($question[$key], "A.") != 0) {
-            //     $a[$j]['a'] = strip_tags($question[$key]);
-            // }
-            // if(strpos($question[$key], "A.") != 0) {
-            //     $a[$j]['a'] = strip_tags($question[$key]);
-            // }
-            // if(strpos($question[$key], "A.") != 0) {
-            //     $a[$j]['a'] = strip_tags($question[$key]);
-            // }
-            $j++;
+            $question[$key] = " " . strip_tags($value) . "<br/>";
+            $question[$key] = trim($question[$key],"&nbsp;");
+            $length = strlen($question[$key]);
+            $pos = strpos($question[$key], '\u20');
+            // dd($pos);
+            $question[$key] = mb_ereg_replace("\u200b", '', $question[$key]);
+            $question[$key] = str_replace('&nbsp;','',$question[$key]);
+            $question[$key] = str_replace('\u200b','',$question[$key]);
         }
-        dd($question);
-        // function rand_string( $length ) {
-        //     $chars = "abcd";
-        //     $size = strlen( $chars );
-        //     for( $i = 0; $i < $length; $i++ ) {
-        //         $str = $chars[ rand( 0, $size - 1 ) ];
-        //     }
-        // return $str;
-        // }
-        // foreach($a as $key => $value) {
-        //     $str = rand_string(1);
-        //     $data[] = [];
-        //     $data = [
-        //         'question' => '1',
-        //         'exam_id' => 3,
-        //         'user_id' => 1,
-        //         'created_at' => new \DateTime(),
-        //         'answer' => $str,
-        //         'level' => rand(1,3),
-        //         'genre_id' => 1,
-        //     ];
-        //     dd($data);
-        // DB::table('answer_questions')->insert($data);
-        // }
+        
+        // dd($question);
+        function rand_string( $length ) {
+            $chars = "abcd";
+            $size = strlen( $chars );
+            for( $i = 0; $i < $length; $i++ ) {
+                $str = $chars[ rand( 0, $size - 1 ) ];
+            }
+        return $str;
+        }
+        $j = 0;
+        for($i = 0; $i <= $key; $i++) {
+            if(strpos($question[$i], "A.") != 0) {
+                $a[$j]['a'] = strip_tags($question[$i]);
+                $i++;
+                $a[$j]['b'] = strip_tags($question[$i]);
+                $i++;
+                $a[$j]['c'] = strip_tags($question[$i]);
+                $i++;
+                $a[$j]['d'] = strip_tags($question[$i]);
+                $j++;
+            }
+            else {
+                $a[$j]['question'] = strip_tags($question[$i]);
+            }
+        }
+        // dd($a);
+        foreach($a as $key => $value) {
+            $str = rand_string(1);
+            $data[] = [];
+            $data = [
+                'question' => json_encode($a[$key]),
+                'exam_id' => 1,
+                'user_id' => 1,
+                'created_at' => new \DateTime(),
+                'answer' => $str,
+                'level' => rand(1,3),
+                'genre_id' => 1,
+            ];
+            // dd($data);
+        DB::table('answer_questions')->insert($data);
+        }
     }
     
     public function postlaydata(Request $request) {

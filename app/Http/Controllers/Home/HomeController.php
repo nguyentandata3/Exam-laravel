@@ -71,8 +71,8 @@ class HomeController extends Controller
             ->join('users', 'answer_questions.user_id', '=', 'users.id')
             ->join('genres', 'answer_questions.genre_id', '=', 'genres.id')
             ->join('exams', 'answer_questions.exam_id', '=', 'exams.id')
-            ->inRandomOrder()
             ->where('exam_id', $exam_id)
+            ->limit(10)
             ->get();
             // dd($data);
         return view('home.exams', $data);

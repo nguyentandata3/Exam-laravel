@@ -51,6 +51,7 @@ class ResultController extends Controller
             ->where('exam_id', $exam_id)
             ->limit(10)
             ->get();
+            dd($data);
         $data['first_point'] = DB::table('results')
                                 ->where('exam_id', $exam_id)
                                 ->ORDERBY('point', 'DESC')

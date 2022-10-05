@@ -46,10 +46,10 @@ class ExamController extends Controller
      */
     public function store(ExamRequest $request)
     {
-        $data = $request->except('_token');
+        $data = $request->except('_token','hours','minutes','seconds');
+        $data['total_time'] = $request->hours*3600 + $request->minutes*60 + $request->seconds;
         $data['user_id'] = 1;
         $data['created_at'] = new \DateTime();
-        // dd($data);
         DB::table('exams')->insert($data);
         return redirect()->route('admin.exams.index', ['subject_id' => $request->subject_id]);
     }

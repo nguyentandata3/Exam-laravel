@@ -16,11 +16,7 @@ class SubjectSeeder extends Seeder
     public function run()
     {
         $data[] = [
-            'name' => 'Math',
-            'user_id' => 1
-        ];
-        $data[] = [
-            'name' => 'History',
+            'name' => 'Tiếng Anh',
             'user_id' => 1
         ];
         DB::table('subjects')->insert($data);

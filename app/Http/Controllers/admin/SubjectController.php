@@ -100,13 +100,13 @@ class SubjectController extends Controller
      */
     public function destroy($id)
     {
-        $exam_id = DB::table('exams')->where('subject_id', $id)->first()->id;
-        dd($exam_id);
-        // dd(DB::table('answer_questions')->where('exam_id', $exam_id)->get());
-        DB::table('answer_questions')->where('exam_id', $exam_id)->delete();
-        DB::table('exams')->where('subject_id', $id)->delete();
-
         $subjects = DB::table('subjects')->where('id', $id);
+        $exam = DB::table('exams')->where('subject_id', $id)->get();
+        foreach($exam as $item) {
+            DB::table('answer_questions')->where('exam_id', $item->id)->delete();
+            DB::table('results')->where('exam_id', $item->id)->delete();
+        }
+        DB::table('exams')->where('subject_id', $id)->delete();
         if($subjects->delete()) {
             return redirect()->route('admin.subjects.index');
         }

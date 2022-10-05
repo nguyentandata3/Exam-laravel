@@ -180,6 +180,9 @@ a {
     color:green;
     font-weight: 750 !important;
 }
+.ml-0 {
+    margin-left: 0px !important;
+}
 .buttom_mt_25 {
     margin-top:25% !important;
 }

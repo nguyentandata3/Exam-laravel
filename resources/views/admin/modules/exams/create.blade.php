@@ -24,8 +24,12 @@
 
     <div class="col-xl-12">
         <div class="mb-3">
-            <label for="cleave-ccard" class="form-label">Total time (Seconds)</label>
-            <input type="text" name="total_time" class="form-control" id="cleave-ccard" placeholder="Please input Total time">
+            <label for="cleave-ccard" class="form-label">Total time (Hours : Minutes : Seconds)</label>
+            <div class="row ml-0">
+                <input type="text" name="hours" class="form-control col-1" placeholder="Hours" value="0">
+                <input type="text" name="minutes" class="form-control col-1" placeholder="Minutes" value="0">
+                <input type="text" name="seconds" class="form-control col-1" placeholder="Seconds" value="0">
+            </div>
         </div>
     </div><!-- end col -->
 
