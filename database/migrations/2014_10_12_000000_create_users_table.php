@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->string('facebook_id')->nullable();
             $table->string('uuid');
             $table->string('username');
             $table->string('fullname');

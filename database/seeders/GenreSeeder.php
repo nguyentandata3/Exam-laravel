@@ -15,11 +15,11 @@ class GenreSeeder extends Seeder
     public function run()
     {
         $data[] = [
-            'name' => 'Quiz',
+            'name' => 'Trắc nghiệm',
             'user_id' => 1
         ];
         $data[] = [
-            'name' => 'Fill',
+            'name' => 'Điền vào chỗ trống',
             'user_id' => 1
         ];
         DB::table('genres')->insert($data);

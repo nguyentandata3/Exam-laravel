@@ -49,8 +49,9 @@ input{
 }
 
 .buttontt {
-    width: max-content; 
-    margin-top:0px;
+    display: flex !important;
+    justify-content: end !important;
+    width: max-content !important;
 }
 .text-2xl {
     font-size: 1.5rem;
@@ -159,10 +160,33 @@ a {
         display:none;
     }
 
+    .exam_col_12 {
+        display: none;
+    }
+
     .time {
         display:flex;
         justify-content: center;
     }
+}
+.pl-30{
+    padding-left: 30px;
+}
+@media only screen and (max-width: 1400px) {
+    .submit_col_12{
+        display: block;
+    }
+
+    .exam_col_12 {
+        margin-right: 4em;
+        display: block !important;
+    }
+
+    .time {
+        display:flex;
+        justify-content: center;
+    }
+
 }
 
 .bg_red {
@@ -194,6 +218,14 @@ a {
 }
 .p_relative {
     position: relative;
+}
+.text_red {
+    color:red;
+}
+.text_info {
+    font-size: 30px !important;
+    color: #26d04c !important;
+    font-weight: bold;
 }
 .button_x {
     position: absolute;

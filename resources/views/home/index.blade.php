@@ -2,7 +2,23 @@
 @section('name', 'Trang chủ')
 @section('endname', 'Thi online')
 @section('content')
+
+<?php
+    use Illuminate\Support\Facades\Auth;
+    use Illuminate\Support\Facades\DB;
+    use Illuminate\Support\Facades\Session;
+?>
 <div class="col-12 p-1 pull-center">
+    @if (Session::get('success'))
+    <div class="alert alert-success alert-dismissible" id="tb">
+        <button type="button" class="close" id="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h5><i class="icon fas fa-check"></i> Thông báo!</h5>
+        {{ (Session::get('success')) }}
+    </div>
+    @endif
+</div>
+<div class="col-12 p-1 pull-center">
+   
     <div class="col-12 p-1 d-flex">
         <div class="col-7 h3 text-primary p-1 pl-2 mt-4 mb-2"> Giới Thiệu </div>
     </div>
@@ -35,9 +51,21 @@
                         <a class="text-dark" href="{{ route('exams', ['exam_id' => $item->id]) }}">{{ $item->name }}</a> 
                     </div>
                     <div class="col-2 p-0 text-right">
-                        <span class="text-center pb-0">
-                            <a class="btn btn-sm btn-primary p-1 buttontt" href="{{ route('exams', ['exam_id' => $item->id]) }}"> Bắt đầu thi </a> &nbsp;
+                        <?php
+                            if(Auth::user()) {
+                                $results = DB::table('results')->where('exam_id', $item->id)->ORDERBY('id', 'DESC')->first();
+                            }
+                        ?>
+                        @if(!empty($results) && Auth::user() && $results->user_id == Auth::user()->id)
+                            <span class="text-center pb-0 buttontt">
+                                <a class="btn btn-sm btn-primary" href="{{ route('exams', ['exam_id' => $item->id]) }}"> Bắt đầu thi </a> &nbsp;
+                                <a class="btn btn-sm btn-success" href="{{ route('users.history', ['history_id' => $results->id])}}"> Xem kết quả </a> &nbsp;
+                            </span>
+                        @else 
+                        <span class="text-center pb-0 buttontt">
+                            <a class="btn btn-sm btn-primary" href="{{ route('exams', ['exam_id' => $item->id]) }}"> Bắt đầu thi </a> &nbsp;
                         </span>
+                        @endif
                     </div>
                 </div>
                 @endforeach

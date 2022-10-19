@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
 use App\Http\Requests\user\UserRequest;
 use Illuminate\Support\Facades\Hash;
 
@@ -38,22 +37,22 @@ class UserController extends Controller
             $data['avatar'] = $user_current->avatar;
         } else {
             $image_path = public_path('images') . '/' . $user_current->avatar;
-            if(file_exists($image_path)) {
-                unlink($image_path);
-            }
+            // if(($image_path)) {
+            //     unlink($image_path);
+            // }
             $avatar = time().'-'.$request->avatar->getClientOriginalName();  
             $request->avatar->move(public_path('images'), $avatar);
             $data['avatar'] = $avatar;
         }
         $data['updated_at'] = new \DateTime();
+        // dd($data);
         DB::table('users')->where('uuid', $user_uuid)->update($data);
-        return redirect()->route('users.profile', ['user_uuid' => $user_uuid])->with(['success' => 'Success Edit Profile']);
+        return redirect()->route('users.profile', ['user_uuid' => $user_uuid])->with(['success' => 'Thay đổi thông tin cá nhân thành công']);
     }
 
     public function getChangePassword($user_uuid) 
     {
         $data['user'] = DB::table('users')->where('uuid', $user_uuid)->first();
-        // dd($data);
         $data["i"] = 0;
         $data["i"]++;
         return view('users.modules.profile.changepassword', $data);
@@ -66,19 +65,12 @@ class UserController extends Controller
             'username' => Auth::user()->username,
             'password' => $request->old_password,
         ];
-        $i = $request->i;
-        while($request->i <= 3) {
-            if(Auth::attempt($login)) {
-                $data['password'] = $request->new_password;
-                DB::table('users')->where('uuid', $user_uuid)->update($data);
-                return redirect()->back()->with(['success' => 'Change Password successfully']);
-            }
-            else {
-                $i++;
-                return redirect()->back()->with(['alert' => "Password change failed $i"]);
-            }
+        if(Auth::attempt($login)) {
+            $data['password'] = Hash::make($request->new_password);
+            DB::table('users')->where('uuid', $user_uuid)->update($data);
+            return redirect()->back()->with(['success' => 'Mật khẩu đã được thay đổi']);
         }
-        return redirect()->route('logout')->with(['alert' => 'Password change failed 3 times']);
+        return redirect()->back()->with(['alert' => 'Đổi mật khẩu thất bại. Vui lòng kiểm tra lại thông tin']);
 
     }
 
@@ -118,13 +110,6 @@ class UserController extends Controller
             ->join('exams', 'answer_questions.exam_id', '=', 'exams.id')
             ->where('exam_id', $data['exams']->id)
             ->get();
-        // $data['medium_point'] = 0;
-        // foreach($data['results'] as $item) {
-        //     $data['medium_point'] += $item->point;
-        // }
-        // if ($data['results']->count() != 0) {
-        // $data['medium_point'] /= $data['results']->count();
-        // }
         // dd($data);
         return view('users.modules.profile.history', $data);
     }

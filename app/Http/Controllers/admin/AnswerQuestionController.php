@@ -92,13 +92,13 @@ class AnswerQuestionController extends Controller
      */
     public function store(Request $request, $exam_id)
     {
-        dd($request);
+        // dd($request);
         $exams = DB::table('exams')->where('id', $exam_id)->first();
         $data = $request->except('_token');
         $data['exam_id'] = $exams->id;
         $data['user_id'] = 1;
         $data['question'] = json_encode($request->question);
-        if($request->image->getClientOriginalName() != null) {
+        if($request->image != null) {
             $imageName = time().'-'.$request->image->getClientOriginalName();  
             $request->image->move(public_path('images'), $imageName);
             $data['image'] = $imageName;
@@ -106,7 +106,7 @@ class AnswerQuestionController extends Controller
 
         $data['created_at'] = new \DateTime();
         DB::table('answer_questions')->insert($data);
-        return redirect()->route('admin.exams.index', ['subject_id' => $exams->subject_id]);
+        return redirect()->route('admin.exams.index', ['subject_id' => $exams->subject_id])->with(['success' => 'Thêm câu hỏi mới thành công']);
     }
 
     /**
@@ -126,12 +126,12 @@ class AnswerQuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id_exam, $id_answerquestion)
+    public function edit($answerquestion_id)
     {
-        $data['exams'] = DB::table('exams')->where('id', $id_exam)->first();
-        $exams = DB::table('answer_questions')->where('id', $id_answerquestion);
-        if($exams->exists()) {
-            $data['answer_questions'] = $exams->first();
+        $answer_questions = DB::table('answer_questions')->where('id', $answerquestion_id)->first();
+        $data['exams'] = DB::table('exams')->where('id', $answer_questions->exam_id)->first();
+        if($answer_questions) {
+            $data['answer_questions'] = $answer_questions;
             $data['genres'] = DB::table('genres')->where('id', $data['answer_questions']->genre_id)->first();
             $data['questions'] = json_decode($data['answer_questions']->question, true);
             // dd($data);
@@ -149,14 +149,15 @@ class AnswerQuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(AnswerQuestionRequest $request, $id_exam, $id_answerquestion)
+    public function update(AnswerQuestionRequest $request, $answerquestion_id)
     {
         $data = $request->except('_token');
         $data['updated_at'] = new \DateTime();
         // dd($data);
-        DB::table('answer_questions')->where('id', $id_answerquestion)->update($data);
+        $answer_questions =  DB::table('answer_questions')->where('id', $answerquestion_id)->first();
+        DB::table('answer_questions')->where('id', $answerquestion_id)->update($data);
 
-        return redirect()->route('admin.answerquestions.index',['exam_id' => $id_exam]);
+        return redirect()->route('admin.answerquestions.index',['exam_id' => $answer_questions->exam_id])->with(['success' => 'Chỉnh sửa câu hỏi thành công']);
     }
 
     /**
@@ -165,11 +166,12 @@ class AnswerQuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id_exam, $id_answerquestion)
+    public function destroy($answerquestion_id)
     {
-        $answer_questions = DB::table('answer_questions')->where('id', $id_answerquestion);
+        $answer_questions = DB::table('answer_questions')->where('id', $answerquestion_id);
+        $exam_id = $answer_questions->first()->exam_id;
         if($answer_questions->delete()) {
-            return redirect()->route('admin.answerquestions.index',['exam_id' => $id_exam]);
+            return redirect()->route('admin.answerquestions.index',['exam_id' => $exam_id])->with(['success' => 'Đã xóa câu hỏi']);
         }
         else {
             abort(404);

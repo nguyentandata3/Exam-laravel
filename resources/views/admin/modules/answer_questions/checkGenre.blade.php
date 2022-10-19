@@ -1,7 +1,7 @@
 @extends('master')
-@section('name', 'Answer Questions')
-@section('endname', 'Create')
-@section('midname', 'Create new Answer Questions')
+@section('name', 'Câu hỏi')
+@section('endname', 'Tạo mới')
+@section('midname', 'Tạo mới 1 câu hỏi')
 @section('content')
     <form method="post" action="{{ route('admin.answerquestions.postcheckGenre',['exam_id' => $exams->id]) }}">
         @csrf

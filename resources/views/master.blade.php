@@ -61,7 +61,7 @@
                             @if ($errors->any())
                             <div class="alert alert-danger alert-dismissible" id="tb">
                                 <button type="button" class="close" id="close">×</button>
-                                <h5><i class="icon fas fa-ban"></i> Alert!</h5>
+                                <h5><i class="icon fas fa-ban"></i> Thông báo!</h5>
                                     @foreach ($errors->all() as $error)
                                         <li>{{ $error }}</li>
                                     @endforeach

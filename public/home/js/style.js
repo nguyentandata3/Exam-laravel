@@ -24,7 +24,7 @@ jQuery(function ($) {
     var time = $('#time_test').val();  
     // alert(123);
     var fiftyfiveMinutes = time,
-    display = $('#time');
+    display = $('.total_time_test');
     startTimer(fiftyfiveMinutes, display);
     }
 });

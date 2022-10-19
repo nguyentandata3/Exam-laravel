@@ -37,7 +37,6 @@ class ResultController extends Controller
     public function exams(Request $request, $exam_id)
     {
         session_start();
-        // dd($_SESSION['total_time']);
         if (isset($_SESSION['user_test'])) {
             unset($_SESSION['user_test']);
         }
@@ -80,8 +79,6 @@ class ResultController extends Controller
     public function addSession(Request $request, $exam_id)
     {
         $exam = DB::table('exams')->where('id', $exam_id)->first();
-        // session_start();
-        // setcookie("abc", $exam->total_time, $expire = 0, time() + $exam->total_time, "/");
         session_start();
         //Set PHP session with value, time
         $currentTime = time();
@@ -90,14 +87,13 @@ class ResultController extends Controller
             "time" => $currentTime,
             "life_time" => $exam->total_time
         );
-        // $_SESSION['time'] = $exam->total_time;
         return redirect()->route('users.answer_questions');
     }
 
     public function answer_questions(Request $request)
     {
         session_start();
-        if(isset($_SESSION["user_test"])) {
+        if(isset($_SESSION['user_test'])) {
             $exam_id = $_SESSION['user_test']['value'];
             $data['timecurrent'] = $_SESSION['user_test']['time'];
             $data['timelife'] = $_SESSION['user_test']['life_time'] + $data['timecurrent'];

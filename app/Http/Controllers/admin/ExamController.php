@@ -108,11 +108,11 @@ class ExamController extends Controller
     public function destroy($id)
     {
         $results = DB::table('results')->where('exam_id', $id)->delete();
-        $answer_questions = DB::table('answer_questions')->where('exam_id', $id)->get();
+        $answer_questions = DB::table('answer_questions')->where('exam_id', $id)->delete();
         $exams = DB::table('exams')->where('id', $id);
         $subject_id = DB::table('exams')->where('id', $id)->first()->subject_id;
         if($exams->delete()) {
-            return redirect()->route('admin.exams.index', ['subject_id' => $subject_id]);
+            return redirect()->route('admin.exams.index', ['subject_id' => $subject_id])->with(['success' => 'Đã xóa Đề thi']);
         }
         else {
             abort(404);

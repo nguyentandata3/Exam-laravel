@@ -30,7 +30,6 @@ class ExamRequest extends FormRequest
             'seconds' => 'required',
             'hours' => 'required',
             'minutes' => 'required',
-            'limit' => 'required',
 
         ];
     }
@@ -43,7 +42,6 @@ class ExamRequest extends FormRequest
             'hours.required' => 'Vui lòng nhập số giờ thi',
             'minutes.required' => 'Vui lòng nhập số phút thi',
             'seconds.required' => 'Vui lòng nhập số giây thi',
-            'limit.required' => 'Vui lòng nhập só lần bài thi'
         ];
     }
 }

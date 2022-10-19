@@ -22,67 +22,87 @@
         $data_questions = json_decode($item->question, true);
     }
 @endphp
-<div class="col-lg-12" >
-    <div class="col-12-p1">
-        <table class="table align-middle table-nowrap shadow-lg m-1 p-1 border border-muted rounded bg-white">
-            <thead class="table-light">
-                <tr id="question{{$loop->iteration}}">
-                    <?php  if(!empty($item->genre_id == 1)) { ?>
-                    <th class="{{$level}}" scope="col" style="width: 12%;">
-                    Question {{ $loop->iteration }}: (Level<?php 
-                        if($item->level == 1) {?>
-                        Easy
-                        <?php } elseif ($item->level == 2) { ?>
-                        Normal 
-                        <?php } else {?>
-                        Hard
-                        <?php } ?>)
-                    </th>
-                    <?php }
-                    elseif ($item->genre_id == 2) { ?>
-                    <th scope="col" style="width: 12%;">Question {{ $loop->iteration }}: {{ $item->question }}</th>
-                    <?php } ?>
-                </tr>
-            </thead>
-            <tbody class="list form-check-all">
-                @foreach($data_questions as $key => $value)
-                    @if($key == 'question') 
-                    <tr>
-                        <th>{{$value}}</th>
+<div class="card ml-30">
+    <div class="card-body">
+        <div class="table-responsive table-card mt-3 mb-1">
+            <table class="table ">
+                <thead class="table-light">
+                    <tr id="question{{$loop->iteration}}">
+                        <?php  if(!empty($item->genre_id == 1)) { ?>
+                        <th class="{{$level}}" scope="col" style="width: 12%;">
+                        Câu hỏi {{ $loop->iteration }}: (Mức độ<?php 
+                            if($item->level == 1) {?>
+                            dễ)
+                            <?php } elseif ($item->level == 2) { ?>
+                            vừa)
+                            <?php } else {?>
+                            khó)
+                            <?php }?>
+                        </th>
+                        <?php }
+                        elseif ($item->genre_id == 2) { ?>
+                        <th scope="col" style="width: 12%;">Question {{ $loop->iteration }}: {{ $item->question }}</th>
+                        <?php } ?>
                     </tr>
-                    @else
-                        @if(!empty($history[$item->id]))
-                            @if($history[$item->id] == $key)
-                                @if($history[$item->id] == $item->answer)
-                                <tr>
-                                    <td class="text_green"><input type="radio" name="{{ $item->id }}" value="{{$key}}" checked disabled>
-                                    {{$value}}</td>
-                                </tr>
+                </thead>
+                <tbody class="list form-check-all">
+                    @foreach($data_questions as $key => $value)
+                        @if($key == 'question') 
+                            @if(!empty($history[$item->id]))
+                            <tr>
+                                <th>{{$value}} </th>
+                            </tr>
+                            @else
+                            <tr>
+                                <th>{{$value}} <div class="text_red">Bạn không chọn đáp án</div></th>
+                            </tr>
+                            @endif
+                        @else
+                            @if(!empty($history[$item->id]))
+                                @if($history[$item->id] == $key)
+                                    @if($history[$item->id] == $item->answer)
+                                    <tr>
+                                        <td class="text_green"><input type="radio" value="{{$key}}" checked disabled>
+                                        {{$value}}</td>
+                                    </tr>
+                                    @else
+                                    <tr>
+                                        <td class="text_red"><input type="radio" value="{{$key}}" checked disabled>
+                                        {{$value}}</td>
+                                    </tr>
+                                    @endif
                                 @else
-                                <tr>
-                                    <td class="text_red"><input type="radio" name="{{ $item->id }}" value="{{$key}}" checked disabled>
-                                    {{$value}}</td>
-                                </tr>
+                                    @if($key == $item->answer)
+                                    <tr>
+                                        <th class="text_green"><input type="radio" value="{{$key}}" disabled>
+                                        {{$value}}</th>
+                                    </tr>
+                                    @else
+                                    <tr>
+                                        <td><input type="radio" value="{{$key}}" disabled>
+                                        {{$value}}</td>
+                                    </tr>
+                                    @endif
                                 @endif
+    
                             @else
                                 @if($key == $item->answer)
                                 <tr>
-                                    <th class="text_green"><input type="radio" name="{{ $item->id }}" value="{{$key}}" disabled>
+                                    <th class="text_green"><input type="radio" value="{{$key}}" disabled>
                                     {{$value}}</th>
                                 </tr>
                                 @else
                                 <tr>
-                                    <td><input type="radio" name="{{ $item->id }}" value="{{$key}}" disabled>
+                                    <td><input type="radio" value="{{$key}}" disabled>
                                     {{$value}}</td>
                                 </tr>
                                 @endif
                             @endif
                         @endif
-                        
-                    @endif
-                @endforeach
-            </tbody>
-        </table>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 @endforeach   

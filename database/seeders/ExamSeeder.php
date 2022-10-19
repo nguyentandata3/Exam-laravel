@@ -17,7 +17,6 @@ class ExamSeeder extends Seeder
         $data[] = [
             'name' => 'Đề thi HK2 môn Tiếng Anh 12 năm 2021-2022',
             'total_time' => '3600',
-            'limit' => '3',
             'subject_id' => 1,
             'user_id' => 1
         ];

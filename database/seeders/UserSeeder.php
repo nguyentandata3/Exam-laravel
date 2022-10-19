@@ -20,10 +20,10 @@ class UserSeeder extends Seeder
             'fullname' => 'Nguyen Tan Dat',
             'sex' => 1,
             'username' => 'admin',
-            'email' => 'admin'.'@gmail.com',
+            'email' => '111'.'@gmail.com',
             'password' => Hash::make('password'),
             'phone' => '0908849314',
-            'avatar' =>'123',
+            'avatar' =>'',
             'level' => 1,
             'uuid' => Str::uuid()
         ]);

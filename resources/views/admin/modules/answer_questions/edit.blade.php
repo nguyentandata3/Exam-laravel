@@ -3,7 +3,7 @@
 @section('endname', 'Chỉnh sửa')
 @section('midname', 'Chỉnh sửa câu hỏi')
 @section('content')
-<form method="post" action="{{ route('admin.answerquestions.update',['exam_id' => $exams->id, 'id_answerquestion' => $answer_questions->id]) }}" enctype="multipart/form-data">
+<form method="post" action="{{ route('admin.answerquestions.update',['answerquestion_id' => $answer_questions->id]) }}" enctype="multipart/form-data">
         @csrf
         <div class="col-xl-12">
 
@@ -16,13 +16,16 @@
                     <input type="hidden" name="genre_id" class="form-control" id="cleave-ccard" value="{{ $genres->id }}">
                 </div>
             </div><!-- end col -->
-            <div class="mb-3">
-                <label for="cleave-ccard" class="form-label">Cấp độ</label>
-                <select name='level' class="form-control" >
-                    <option value="1">Dễ</option>
-                    <option value="2">Vừa</option>
-                    <option value="3">Khó</option>
-                </select>
+
+            <div class="col-xl-12">
+                <div class="mb-3">
+                    <label for="cleave-ccard" class="form-label">Cấp độ</label>
+                    <select name='level' class="form-control" >
+                        <option value="1">Dễ</option>
+                        <option value="2">Vừa</option>
+                        <option value="3">Khó</option>
+                    </select>
+                </div>
             </div>
 
             <div class="col-xl-12">
@@ -34,10 +37,11 @@
                         filebrowserUploadMethod: 'form'
                     });</script>
             </div>
-
-            <div class="form-group">
-                <label>Image</label>
-                <input type="file" name="image" class="form-control" value="{{ old('image', $answer_questions->image) }}">
+            <div class="col-xl-12">
+                <div class="form-group">
+                    <label>Image</label>
+                    <input type="file" name="image" class="form-control" value="{{ old('image', $answer_questions->image) }}">
+                </div>
             </div>
 
             @if($genres->id == 1)
@@ -86,14 +90,16 @@
             @else
             <div class="col-xl-12">
                 <div class="mb-3">
-                    <label for="cleave-ccard" class="form-label">Đáp án</label>
+                    <label for="cleave-ccard" class="form-label">Đáp án đúng</label>
                     <input type="text" name="answer" class="form-control" id="cleave-ccard" placeholder="Vui lòng nhập đáp án mới" value="{{ old('answer', $answer_questions->answer) }}">
                 </div>
             </div><!-- end col -->
             @endif
         </div>
-        <button class="btn btn-success add-btn" type="submit">Chỉnh sửa</button>
-        <a class="btn btn-sm btn-danger" href="{{ route('admin.answerquestions.index',['exam_id' => $exams->id]) }}">Hủy bỏ</a>
+        <div class="col-xl-12">
+            <button class="btn btn-success add-btn" type="submit">Chỉnh sửa</button>
+            <a class="btn btn-danger add-btn" href="{{ route('admin.answerquestions.index',['exam_id' => $exams->id]) }}">Hủy bỏ chỉnh sửa</a>
+        <div class="col-xl-12">
     </form>
 
 @endsection

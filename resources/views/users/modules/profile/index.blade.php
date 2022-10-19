@@ -15,7 +15,7 @@
     @if (Session::get('success'))
         <div class="alert alert-success alert-dismissible" id="tb">
             <button type="button" class="close" data-dismiss="alert" id="close" aria-hidden="true">×</button>
-            <h5><i class="icon fas fa-check"></i> Alert!</h5>
+            <h5><i class="icon fas fa-check"></i> Thông báo!</h5>
             {{ (Session::get('success')) }}
         </div>
     @endif
@@ -31,7 +31,7 @@
         <div class="col-12 p-1 justify-content-start d-flex">
             <label for="name" class="col-3 col-form-label col-form-label p-1">Họ và tên</label>
             <div class="col-9">
-                <input type="text" id="fullname" class="form-control form-control-sm bg-white p-1" name="fullname" value={{ $user->fullname }}>
+                <input type="text" class="form-control form-control-sm bg-white p-1" name="fullname" value='{{ $user->fullname }}'>
             </div>
         </div>
 
@@ -59,20 +59,20 @@
         <div class="col-12 p-1 justify-content-start d-flex">
             <label for="sex" class="col-3 col-form-label col-form-label p-1">Giới tính</label>
             <div class="col-9">
-                <select id="sex" name="sex" class="form-control bg-white p-2" required="">
-                    <option value="1" selected=""> Male </option>
-                    <option value="0"> Female </option>
+                <select id="sex" name="sex" class="form-control bg-white p-2">
+                    <option value="1" <?php if($user->sex == 1) echo 'selected' ?>> Nam </option>
+                    <option value="2" <?php if($user->sex == 2) echo 'selected' ?>> Nữ </option>
                 </select>
             </div>
         </div>
 
-        <div class="col-12 p-1 justify-content-start d-flex">
+        {{-- <div class="col-12 p-1 justify-content-start d-flex">
             <label for="dob" class="col-3 col-form-label col-form-label p-1">Ngày sinh</label>
             <div class="col-9">
                 <input type="date" id="dob" class="form-control form-control-sm bg-white p-1 
-                    " name="birth" value="2022-07-06" required="">
+                    " name="birth" value="{{ Auth::user()->birth) }}">
             </div>
-        </div>
+        </div> --}}
 
         <div class="col-12 p-1 justify-content-start d-flex">
             <label for="phone" class="col-3 col-form-label col-form-label p-1">Số điện thoại</label>

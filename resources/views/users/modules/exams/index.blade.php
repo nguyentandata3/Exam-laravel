@@ -76,10 +76,10 @@
 </form>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <script type="text/javascript">
+    $(".start").click(function() {
+        return confirm('Bắt đầu tính thời gian thi?');
+    });
     $(document).ready(function(){
-        $(".start").click(function() {
-            return confirm('Bắt đầu tính thời gian thi?');
-        });
         $('[data-toggle="tooltip"]').tooltip(); 
         $('.btn-success').tooltip();  
     });

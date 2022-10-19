@@ -44,7 +44,7 @@ class SubjectController extends Controller
         $data['user_id'] = 1;
         $data['created_at'] = new \DateTime();
         DB::table('subjects')->insert($data);
-        return redirect()->route('admin.subjects.index');
+        return redirect()->route('admin.subjects.index')->with(['success' => 'Tạo thành công môn thi mới']);
     }
 
     /**
@@ -89,7 +89,7 @@ class SubjectController extends Controller
         $data['updated_at'] = new \DateTime();
         DB::table('subjects')->where('id', $id)->update($data);
 
-        return redirect()->route('admin.subjects.index');
+        return redirect()->route('admin.subjects.index')->with(['success' => 'Chỉnh sửa thành công môn thi']);
     }
 
     /**
@@ -108,7 +108,7 @@ class SubjectController extends Controller
         }
         DB::table('exams')->where('subject_id', $id)->delete();
         if($subjects->delete()) {
-            return redirect()->route('admin.subjects.index');
+            return redirect()->route('admin.subjects.index')->with(['success' => 'Đã xóa môn thi']);
         }
         else {
             abort(404);

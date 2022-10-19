@@ -8,6 +8,7 @@ use App\Mail\Mailnotify;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\SendemailRequest;
 use Illuminate\Support\Facades\Hash;
+use Exception;
 
 class MailController extends Controller
 {
@@ -24,11 +25,11 @@ class MailController extends Controller
             $data['password'] = Hash::make($password);
             $user = DB::table('users')->where('email', $request->email)->update($data);
             Mail::to("$request->email")->send(new Mailnotify($password));
-            return redirect()->route('getLogin')->with(['success' => 'Pass word has been sent']);
+            return redirect()->route('getLogin')->with(['success' => 'Mật khẩu mới đã được gửi tới email của bạn']);
         }
         catch (Exception $th)
         {
-            return response()->json('Sorry send mail fail!');
+            return response()->json('Gửi email thất bại. Vui lòng kiểm tra lại email');
         }
     }
 

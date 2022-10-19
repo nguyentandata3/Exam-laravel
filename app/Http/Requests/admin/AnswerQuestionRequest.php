@@ -17,12 +17,9 @@ class AnswerQuestionRequest extends FormRequest
             'level' => request()->route('id')
                 ? 'required:answer_questions,level,'.request()->route('id')
                 : 'required:answer_questions,level',
-            'question[]' => request()->route('id')
-                ? 'required:answer_questions,level,'.request()->route('id')
-                : 'required:answer_questions,level',
             'image' => request()->route('id')
                 ? 'image|mimes:jpeg,png,jpg,gif,svg'
-                : 'required|image|mimes:jpeg,png,jpg,gif,svg',
+                : 'image|mimes:jpeg,png,jpg,gif,svg',
             'answer' => request()->route('id')
                 ? 'required:answer_questions,level,'.request()->route('id')
                 : 'required:answer_questions,level',
@@ -35,8 +32,6 @@ class AnswerQuestionRequest extends FormRequest
     {
         return [
             'level.required' => 'Vui lòng chọn cấp đọ',
-            'question[question].required' => 'Vui lòng nhập câu hỏi',
-            'image.required' => 'Vui lòng chọn hình ảnh',
             'answer.required' => 'Vui lòng nhập đáp án',
         ];
     }

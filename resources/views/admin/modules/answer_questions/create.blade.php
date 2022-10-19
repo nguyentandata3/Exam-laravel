@@ -29,12 +29,13 @@
 
             <div class="col-xl-12">
                 <label for="cleave-ccard" class="form-label">Câu hỏi</label>
-                <textarea name="question[question]" class="form-control" id="question" placeholder="Vui lòng nhập câu hỏi" cols="30" rows="10"></textarea>
+                <textarea name="question[question]" class="form-control" id="question[question]" placeholder="Vui lòng nhập câu hỏi" cols="30" rows="10"></textarea>
                 <script>
-                    CKEDITOR.replace('intro', {
+                    CKEDITOR.replace('question[question]', {
                         filebrowserUploadUrl: "{{ route('admin.upload', ['_token' => csrf_token()]) }}",
                         filebrowserUploadMethod: 'form'
-                    });</script>
+                    });
+                </script>    
             </div>
 
             <div class="col-xl-12">
@@ -76,7 +77,7 @@
 
             <div class="col-xl-12">
                 <div class="mb-3">
-                    <label for="cleave-ccard" class="form-label">Đáp án</label>
+                    <label for="cleave-ccard" class="form-label">Đáp án đúng</label>
                     <select name="answer" class="form-control">
                         <option value="a">A</option>
                         <option value="b">B</option>

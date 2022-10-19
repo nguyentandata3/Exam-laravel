@@ -3,82 +3,20 @@
 @section('endname', 'Danh sách')
 @section('midname', 'Danh sách môn thi')
 @section('content')
-    <div class="card">
-        <div class="card-header">
-            <h4 class="card-title mb-0">Add, Edit &amp; Remove</h4>
-        </div><!-- end card header -->
-
-        <div class="card-body">
-            <div id="customerList">
-                <div class="row g-4 mb-3">
-                    <div class="col-sm-auto">
-                        <div>
-                            <a class="btn btn-success add-btn"href="{{ route('admin.subjects.create')}}"><i class="ri-add-line align-bottom me-1"></i> Add</a>
-                        </div>
-                    </div>
-                    <div class="col-sm">
-                        <div class="d-flex justify-content-sm-end">
-                            <div class="search-box ms-2">
-                                <input type="text" class="form-control search" placeholder="Search...">
-                                <i class="ri-search-line search-icon"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="table-responsive table-card mt-3 mb-1">
-                    <table class="table align-middle table-nowrap" id="customerTable">
-                        <thead class="table-light">
-                            <tr>
-                                <th>Numercial Order</th>
-                                <th>Subject name</th>
-                                <th>Created At</th>
-                                <th>Updated At</th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody class="list form-check-all">
-                            @foreach($subjects as $subject)
-                            <tr>
-                                <th>{{ $loop->iteration }}</th>
-                                <th>{{ $subject->name }}</th>
-                                <th>{{ date('d/m/Y', strtotime($subject->created_at)) }}</th>
-                                <th>{{ date('d/m/Y', strtotime($subject->updated_at)) }}</th>
-                                <th></th>
-                                <th><a class="btn btn-sm btn-success" href="{{ route('admin.subjects.edit',['id' => $subject->id]) }}">Edit</a></th>
-                                <th><a class="btn btn-sm btn-danger" href="{{ route('admin.subjects.destroy',['id' => $subject->id]) }}">Delete</a></th>
-                              
-                            </tr>
-                            @endforeach
-                            </tbody>
-                    </table>
-                    <div class="noresult" style="display: none;">
-                        <div class="text-center">
-                            <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop" colors="primary:#121331,secondary:#08a88a" style="width:75px;height:75px"></lord-icon>
-                            <h5 class="mt-2">Sorry! No Result Found</h5>
-                            <p class="text-muted mb-0">We've searched more than 150+ Orders We did not find any orders for you search.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="d-flex justify-content-end">
-                    <div class="pagination-wrap hstack gap-2">
-                        <a class="page-item pagination-prev disabled" href="#">
-                            Previous
-                        </a>
-                        <ul class="pagination listjs-pagination mb-0"><li class="active"><a class="page" href="#" data-i="1" data-page="8">1</a></li></ul>
-                        <a class="page-item pagination-next disabled" href="#">
-                            Next
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div><!-- end card -->
+<?php
+    use Illuminate\Support\Facades\Auth;
+    use Illuminate\Support\Facades\DB;
+    use Illuminate\Support\Facades\Session;
+?>
+<div class="col-12 p-1 pull-center">
+    @if (Session::get('success'))
+    <div class="alert alert-success alert-dismissible" id="tb">
+        <button type="button" class="close" id="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h5><i class="icon fas fa-check"></i> Thông báo!</h5>
+        {{ (Session::get('success')) }}
     </div>
-    <!-- end col -->
-    @section('content')
+    @endif
+</div>
 <div class="col-lg-12">
     <div class="card">
         <div class="card-header">
@@ -108,7 +46,7 @@
                         <td>{{ date('d/m/Y', strtotime($subject->created_at)) }}</td>
                         <td>{{ date('d/m/Y', strtotime($subject->updated_at)) }}</td>
                         <td><a class="btn btn-sm btn-success w-100" href="{{ route('admin.subjects.edit',['id' => $subject->id]) }}">Chỉnh sửa</a></td>
-                        <td><a class="btn btn-sm btn-danger w-100" href="{{ route('admin.subjects.destroy',['id' => $subject->id]) }}">Xóa</a></td>
+                        <td><a class="btn btn-sm btn-danger w-100 delete" href="{{ route('admin.subjects.destroy',['id' => $subject->id]) }}">Xóa</a></td>
                         
                     </tr>
                     @endforeach
@@ -129,5 +67,13 @@
             </div><!-- end card -->
         <!-- end col -->
         </table>
-@endsection
+        
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js">
+</script>
+<script type="text/javascript">
+    $(".delete").click(function() {
+        flag = false;
+        return confirm('Xóa môn thi này?');
+    }); 
+</script>
 @endsection

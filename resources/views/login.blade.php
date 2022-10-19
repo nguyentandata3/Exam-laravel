@@ -62,7 +62,7 @@
 
                         <div class="card-body p-4">
                             <div class="text-center mt-2">
-                                <h5><p class="text-muted">Đăng nhập để tiếp tục thi online.</p></h5>
+                                <h5><p class="text-muted">Đăng nhập để bắt đầu thi online.</p></h5>
                             </div>
                             <div class="p-2 mt-4">
                                 <form action="{{ route('postLogin') }}" method="post">
@@ -86,7 +86,7 @@
                                         <input class="form-check-input" type="checkbox" value="" id="auth-remember-check">
                                         <label class="form-check-label" for="auth-remember-check">Nhớ mật khẩu</label>
                                     </div>
-
+                                    
                                     <div class="mt-4">
                                         <button class="btn btn-success w-100" type="submit">Đăng nhập</button>
                                     </div>
@@ -117,7 +117,7 @@
                 <div class="col-lg-12">
                     <div class="text-center">
                         <p class="mb-0 text-muted">&copy;
-                            <script>document.write(new Date().getFullYear())</script> Exam online. Crafted with <i class="mdi mdi-heart text-danger"></i> by Tan Dat
+                            <script>document.write(new Date().getFullYear())</script> Thi Online. Được chế tác bởi <i class="mdi mdi-heart text-danger"></i> Nguyễn Tấn Đạt
                         </p>
                     </div>
                 </div>

@@ -91,13 +91,14 @@
                                 </th>
                                 <?php }
                                 elseif ($item->genre_id == 2) { ?>
-                                <th scope="col" style="width: 12%;">Question {{ $loop->iteration }}: {{ $item->question }}</th>
+                                <th scope="col" style="width: 12%;">Câu hỏi {{ $loop->iteration }}: {{ $item->question }}</th>
                                 <?php } ?>
                             </tr>
                         </thead>
+                        {{-- @dd($data_questions['question']) --}}
                         <tbody class="list form-check-all">
                             <tr>
-                                <th> {!! $data_questions['question'] !!} </th>
+                                <th> {{ $data_questions['question'] }} </th>
                             </tr>
                             <tr data-aos="fade-right" data-aos-delay="300" >
                                 <?php
@@ -160,7 +161,7 @@
     <div class="col-3 time_and_exams">
         <div class="styles_card__FMlAF time">
                 <i data-feather="clock"></i>
-                <span id="time" ></span>
+                <span class="total_time_test" ></span>
         </div>
         <div class="card">
             <div class="card-header">
@@ -191,13 +192,50 @@
                     </div>
                 </div>
             </div>
-        <div>
-            <input type="submit" class="finish btn btn-success add-btn w-100" value="Submit">
+            <div>
+                <input type="submit" class="finish btn btn-success add-btn w-100" value="Nộp bài">
+            </div>
         </div>
+    </div>
+    
+    <div class="col-12 exam_col_12 pl-30">
+        <div class="styles_card__FMlAF time">
+            <i data-feather="clock"></i>
+            <span class="total_time_test" ></span>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex justify-content-center align-items-center">
+                    <div class="d-flex pr-5"><i class="styles_box__3y3tx"></i></div>
+                    <div class="p-0 d-flex">Chưa Làm</div>
+                    <div class="pl-20 d-flex pr-5"><i class="styles_box__3y3tx bg-primary"></i></div>
+                    <div class="p-0 d-flex">Đã làm</div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="mt-2 mobile:hidden pb_400 relative">
+                    <div class="styles_card__FMlAF pt-0">
+                        <h1 class="text-2xl mt-2 mb-3 d-flex justify-content-center w-100 text-muted">Câu hỏi</h1>
+                        <div class="simplebar-offset absolute mt_50">
+                            <div class="simplebar-content-wrapper">
+                                <div class="grid grid-cols-5 gap-3 justify-center items-center">
+                                    @foreach ($answer_questions as $item)
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <div class="styles_box__3y3tx checked_question{{ $loop->iteration }} "> 
+                                            <a class=" text_black" href="#question{{ $loop->iteration }}">{{ $loop->iteration }}</a>
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<input type="submit" class="finish submit_col_12 btn btn-success add-btn col-sm-12" value="Submit">
+<input type="submit" class="finish submit_col_12 btn btn-success add-btn col-lg-12" value="Nộp bài">
 </form> 
     <!-- JAVASCRIPT -->
     <script type="text/javascript" src="{{ asset('home/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>

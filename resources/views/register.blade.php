@@ -29,7 +29,7 @@
 </head>
 
 <body>
-<form class="needs-validation" action="{{ route('postRegister') }}" method="POST">
+<form class="needs-validation" action="{{ route('verify') }}" method="POST">
     @csrf
     <div class="auth-page-wrapper pt-5">
         <!-- auth page bg -->
@@ -83,7 +83,7 @@
                                 <div class="p-2 mt-4">
                                     
                                     <div class="mb-3">
-                                        <label for="useremail" class="form-label">Email <span class="text-danger">*</span></label>
+                                        <label class="form-label">Email <span class="text-danger">*</span></label>
                                         <input type="email" class="form-control" name="email" placeholder="Vui lòng nhập email" >
                                         <div class="invalid-feedback">
                                             Vui lòng nhập email
@@ -145,7 +145,7 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="username" class="form-label">Số điện thoại <span class="text-danger">*</span></label>
+                                        <label class="form-label">Số điện thoại <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="phone" placeholder="Vui lòng nhập số điện thoại" >
                                         <div class="invalid-feedback">
                                             Vui lòng nhập số điện thoại
@@ -162,7 +162,7 @@
                                     </div>
 
                                     <div class="mt-4">
-                                        <button class="btn btn-success w-100" type="submit">Register</button>
+                                        <button class="btn btn-success w-100" type="submit">Đăng ký</button>
                                     </div>
 </form>
                                 </div>
@@ -172,7 +172,7 @@
                         <!-- end card -->
 
                         <div class="mt-4 text-center">
-                            <p class="mb-0">Already have an account ? <a href="{{ route('getLogin')}}" class="fw-semibold text-primary text-decoration-underline"> Signin </a> </p>
+                            <p class="mb-0">Bạn đã có tài khoản ? <a href="{{ route('getLogin')}}" class="fw-semibold text-primary text-decoration-underline"> Đăng nhập </a> </p>
                         </div>
 
                     </div>
@@ -190,7 +190,7 @@
                     <div class="col-lg-12">
                         <div class="text-center">
                             <p class="mb-0 text-muted">&copy;
-                                <script>document.write(new Date().getFullYear())</script> Exam Online. Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand
+                                <script>document.write(new Date().getFullYear())</script> Thi Online. Được chế tác bởi <i class="mdi mdi-heart text-danger"></i> Nguyễn Tấn Đạt
                             </p>
                         </div>
                     </div>

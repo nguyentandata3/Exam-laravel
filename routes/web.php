@@ -7,12 +7,13 @@ use App\Http\Controllers\admin\SubjectController;
 use App\Http\Controllers\admin\ExamController;
 use App\Http\Controllers\admin\GenreController;
 use App\Http\Controllers\admin\AnswerQuestionController;
-use App\Http\Controllers\SocialController;
+use App\Http\Controllers\admin\ContactController;
 use App\Http\Controllers\GetdataController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\CkeditorController;
 use App\Http\Controllers\user\ResultController;
 use App\Http\Controllers\user\UserController;
+use App\Http\Controllers\user\FacebookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,8 +26,8 @@ use App\Http\Controllers\user\UserController;
 |
 */
 
-Route::get('/auth/redirect/{provider}', 'App\Http\Controllers\SocialController@redirect');
-Route::get('/callback/{provider}', 'App\Http\Controllers\SocialController@callback');
+Route::get('auth/facebook',[FacebookController::class,'redirectToFacebook'])->name('auth.facebook');
+Route::get('auth/facebook/callback',[FacebookController::class,'facebookCallback']);
 // Route::get('/auth/redirect/{provider}', [SocialController::class, 'redirect'])->name('redirect');
 // Route::get('/callback/{provider}', [SocialController::class, 'callback'])->name('callback');
 // Route::get('/auth/redirect/{provider}', 'SocialController@redirect');
@@ -35,6 +36,10 @@ Route::get('/callback/{provider}', 'App\Http\Controllers\SocialController@callba
 Route::get('getSendemail', [MailController::class, 'getSendemail'])->name('getSendemail');
 Route::post('postSendemail', [MailController::class, 'postSendemail'])->name('postSendemail');
 Route::get('successemail', [MailController::class, 'successemail'])->name('successemail');
+
+Route::post('verify',[LoginController::class, 'verify'])->name('verify');
+Route::get('successverify',[LoginController::class, 'successverify'])->name('successverify');
+Route::get('finishverify/{uuid}', [LoginController::class, 'finishverify'])->name('finishverify');
 
 Route::get('login', [LoginController::class, 'getLogin'])->name('getLogin');
 Route::get('register', [LoginController::class, 'getRegister'])->name('getRegister');
@@ -50,6 +55,7 @@ Route::post('postlaydata', [GetdataController::class, 'postlaydata'])->name('pos
 Route::prefix('admin/')->name('admin.')->middleware('check_admin')->group(function () {
     Route::get('', [SubjectController::class, 'index'])->name('index');
     Route::post('ckeditor/image_upload', [CkeditorController::class, 'upload'])->name('upload');
+    Route::get('contact', [ContactController::class, 'index'])->name('contact');
 
     Route::controller(SubjectController::class)->prefix('subjects')->name('subjects.')->group(function () {
         Route::get('', 'index')->name('index');
@@ -109,10 +115,10 @@ Route::prefix('admin/')->name('admin.')->middleware('check_admin')->group(functi
         Route::get('getcheckGenre/{exam_id}', 'getcheckGenre')->name('getcheckGenre');
         Route::post('postcheckGenre/{exam_id}', 'postcheckGenre')->name('postcheckGenre');
     
-        Route::get('edit/{exam_id}/{answerquestion_id}', 'edit')->name('edit');
-        Route::post('update/{exam_id}/{answerquestion_id}', 'update')->name('update');
+        Route::get('edit/{answerquestion_id}', 'edit')->name('edit');
+        Route::post('update/{answerquestion_id}', 'update')->name('update');
     
-        Route::get('delete/{exam_id}/{answerquestion_id}', 'destroy')->name('destroy');
+        Route::get('delete/{answerquestion_id}', 'destroy')->name('destroy');
     });
 
 });
@@ -121,7 +127,8 @@ Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('subjects/{subject_id}', [HomeController::class, 'subjects'])->name('subjects');
     
 Route::get('exams/{exam_id}', [HomeController::class, 'exams'])->name('exams');
-
+Route::get('infomation', [HomeController::class, 'infomation'])->name('infomation');
+Route::post('feedback', [HomeController::class, 'feedback'])->name('feedback');
 Route::prefix('users')->middleware('check_user')->name('users.')->group(function () {
     Route::get('/', [ResultController::class, 'index'])->name('index');
     Route::get('subjects/{subject_id}', [ResultController::class, 'subjects'])->name('subjects');

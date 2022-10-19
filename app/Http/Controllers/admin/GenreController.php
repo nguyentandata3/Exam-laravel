@@ -104,7 +104,7 @@ class GenreController extends Controller
     {
         $genres = DB::table('genres')->where('id', $id);
         if($genres->delete()) {
-            return redirect()->route('admin.genres.index');
+            return redirect()->route('admin.genres.index')->with(['success' => 'Đã xóa hình thức thi']);
         }
         else {
             abort(404);

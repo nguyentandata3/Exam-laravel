@@ -33,12 +33,12 @@
         </div>
     </div><!-- end col -->
 
-    <div class="col-xl-12">
+    {{-- <div class="col-xl-12">
         <div class="mb-3">
             <label for="cleave-ccard" class="form-label">Giới hạn số lần làm bài</label>
             <input type="text" name="limit" class="form-control" id="cleave-ccard" placeholder="Vui lòng nhập giới hạn số lần làm bài">
         </div>
-    </div><!-- end col -->
+    </div><!-- end col --> --}}
 
     <div class="col-xl-12">
         <div class="mb-3">

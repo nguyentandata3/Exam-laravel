@@ -11,7 +11,7 @@ class GetdataController extends Controller
     public function laydata() {
         // $data = [];
 
-        $html = file_get_html('https://tracnghiem.net/de-thi/de-thi-hk2-mon-tieng-anh-12-nam-2021-2022-5534.html');
+        $html = file_get_html('https://tracnghiem.net/de-thi/de-thi-hk2-mon-tieng-anh-12-nam-2021-2022-5148.html');
         $answer = ($html->find('.exam-content ul li p'));
         
         $j = 0;

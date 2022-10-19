@@ -13,17 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('exams', function (Blueprint $table) {
+        Schema::create('feedbacks', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('total_time');
-            // $table->tinyInteger('limit');
+            $table->string('email');
+            $table->longText('content');
             $table->timestamps();
-
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedBigInteger('subject_id');
-            $table->foreign('subject_id')->references('id')->on('subjects');
         });
     }
 
@@ -34,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('exams');
+        Schema::dropIfExists('feedbacks');
     }
 };

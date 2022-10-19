@@ -115,6 +115,26 @@
                         </ul>
                     </div>
                 </li>
+                @if(Auth::user())
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{ route('logout')}}" role="button" aria-expanded="false" aria-controls="sidebarPages">
+                        <i data-feather="log-out"></i> <span data-key="t-pages">Đăng xuất</span>
+                    </a>
+                </li>
+                @endif
+                @if(Auth::user() && Auth::user()->level == 1)
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{ route('admin.contact') }}" role="button" aria-expanded="false" aria-controls="sidebarPages">
+                        <i data-feather="info"></i> <span data-key="t-pages">Góp ý</span>
+                    </a>
+                </li>
+                @else
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{ route('infomation') }}" role="button" aria-expanded="false" aria-controls="sidebarPages">
+                        <i data-feather="info"></i> <span data-key="t-pages">Góp ý</span>
+                    </a>
+                </li>
+                @endif
 
             </ul>
         </div>

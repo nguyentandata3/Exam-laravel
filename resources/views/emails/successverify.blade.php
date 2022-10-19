@@ -1,0 +1,1 @@
+Vui lòng nhấn <a href="{{$link}}">vào đây</a> để xác nhận email

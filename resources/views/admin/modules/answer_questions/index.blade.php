@@ -3,6 +3,20 @@
 @section('endname', 'Danh sách')
 @section('midname', 'Danh sách câu hỏi')
 @section('content')
+<?php
+    use Illuminate\Support\Facades\Auth;
+    use Illuminate\Support\Facades\DB;
+    use Illuminate\Support\Facades\Session;
+?>
+<div class="col-12 p-1 pull-center">
+    @if (Session::get('success'))
+    <div class="alert alert-success alert-dismissible" id="tb">
+        <button type="button" class="close" id="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h5><i class="icon fas fa-check"></i> Thông báo!</h5>
+        {{ (Session::get('success')) }}
+    </div>
+    @endif
+</div>
 <div class="col-lg-12">
     <div class="card">
         <div class="card-header">
@@ -63,10 +77,8 @@
                                 <td scope="col" style="width: 12%;">Khó</td>
                             @endif
                             <td scope="col" style="width: 12%;">{{ $item->genre_name }}</td>
-                            <td scope="col"><a class="btn btn-success w-100" href="{{ route('admin.answerquestions.edit',['exam_id' => $item->exam_id,
-                                                                                'answerquestion_id' => $item->id]) }}">Chỉnh sửa</a></td>
-                            <td scope="col"><a class="btn btn-danger w-100" href="{{ route('admin.answerquestions.destroy',['exam_id' => $item->exam_id,
-                                                                                'answerquestion_id' => $item->id]) }}">Xóa</a></td>
+                            <td scope="col"><a class="btn btn-success w-100" href="{{ route('admin.answerquestions.edit',['answerquestion_id' => $item->id]) }}">Chỉnh sửa</a></td>
+                            <td scope="col"><a class="btn btn-danger w-100 delete" href="{{ route('admin.answerquestions.destroy',['answerquestion_id' => $item->id]) }}">Xóa</a></td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -87,4 +99,12 @@
         </table>
     </div>
 </div>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js">
+</script>
+<script type="text/javascript">
+    $(".delete").click(function() {
+        flag = false;
+        return confirm('Xóa câu hỏi?');
+    }); 
+</script>
 @endsection
